@@ -1,0 +1,73 @@
+{
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "emailLabel": "Email address",
+      "passwordLabel": "Password",
+      "submitBtn": "Sign in",
+      "forgotPassword": "Forgot password?",
+      "noAccount": "Don't have an account?"
+    },
+    "register": {
+      "title": "Create your account",
+      "emailLabel": "Email address",
+      "passwordLabel": "Password",
+      "nameLabel": "Full name (optional)",
+      "submitBtn": "Create account",
+      "hasAccount": "Already have an account?"
+    },
+    "verify": {
+      "title": "Verify your email",
+      "successMsg": "Email verified! You can now earn XP and badges.",
+      "expiredMsg": "This link has expired. Request a new verification email."
+    },
+    "reset": {
+      "title": "Reset your password",
+      "emailLabel": "Email address",
+      "submitBtn": "Send reset link"
+    },
+    "twoFactor": {
+      "title": "Two-factor authentication",
+      "codeLabel": "6-digit code",
+      "submitBtn": "Verify"
+    }
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Something went wrong. Please try again.",
+    "save": "Save",
+    "cancel": "Cancel",
+    "back": "Back"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "settings": "Settings",
+    "logout": "Sign out",
+    "upgrade": "Upgrade to Pro"
+  },
+  "dashboard": {
+    "welcomeBack": "Welcome back, {name}!",
+    "dailyLesson": "Daily Lesson",
+    "streak": "Day streak",
+    "upgradePrompt": "Upgrade to Pro to unlock the full Readiness Report and N5 Certification."
+  },
+  "meta": {
+    "home": {
+      "title": "ManaboGo — Learn Japanese for JLPT N5",
+      "description": "The first platform offering an accredited online JLPT N5 certificate. Adaptive SRS, AI readiness reports, and a global community."
+    },
+    "pricing": {
+      "title": "Pricing — ManaboGo",
+      "description": "Free forever or upgrade to Pro for unlimited practice, mock tests, and N5 certification."
+    }
+  },
+  "verify": {
+    "title": "Certificate Verification",
+    "valid": "✅ This certificate is valid",
+    "invalid": "❌ Certificate not found or has been revoked",
+    "certNumber": "Certificate number",
+    "issuedTo": "Issued to",
+    "issuedDate": "Issued on",
+    "score": "Score"
+  }
+}

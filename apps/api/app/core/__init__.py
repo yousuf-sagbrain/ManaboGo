@@ -1,0 +1,1 @@
+# ManaboGo core package

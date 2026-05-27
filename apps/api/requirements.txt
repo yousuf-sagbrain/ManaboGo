@@ -1,0 +1,36 @@
+# Web framework
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+
+# Database
+asyncpg==0.30.0
+alembic==1.14.0
+sqlalchemy==2.0.36  # used only for Alembic metadata, not ORM
+
+# Auth
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+pyotp==2.9.0
+qrcode[pil]==8.0
+
+# Cache
+redis==5.2.1
+
+# Email
+sendgrid==6.11.0
+
+# Settings
+pydantic-settings==2.6.1
+pydantic[email]==2.10.3
+
+# HTTP (for testing)
+httpx==0.28.0
+
+# Testing
+pytest==8.3.4
+pytest-asyncio==0.24.0
+pytest-cov==6.0.0
+
+# Linting (dev)
+ruff==0.8.3
+mypy==1.13.0

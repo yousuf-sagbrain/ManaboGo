@@ -1,0 +1,1 @@
+# ManaboGo auth package

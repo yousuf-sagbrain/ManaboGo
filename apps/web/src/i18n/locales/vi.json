@@ -1,0 +1,73 @@
+{
+  "auth": {
+    "login": {
+      "title": "Chào mừng trở lại",
+      "emailLabel": "Địa chỉ email",
+      "passwordLabel": "Mật khẩu",
+      "submitBtn": "Đăng nhập",
+      "forgotPassword": "Quên mật khẩu?",
+      "noAccount": "Chưa có tài khoản?"
+    },
+    "register": {
+      "title": "Tạo tài khoản của bạn",
+      "emailLabel": "Địa chỉ email",
+      "passwordLabel": "Mật khẩu",
+      "nameLabel": "Họ và tên (tùy chọn)",
+      "submitBtn": "Tạo tài khoản",
+      "hasAccount": "Đã có tài khoản?"
+    },
+    "verify": {
+      "title": "Xác minh email của bạn",
+      "successMsg": "Email đã được xác minh! Bây giờ bạn có thể kiếm XP và huy hiệu.",
+      "expiredMsg": "Liên kết này đã hết hạn. Yêu cầu email xác minh mới."
+    },
+    "reset": {
+      "title": "Đặt lại mật khẩu của bạn",
+      "emailLabel": "Địa chỉ email",
+      "submitBtn": "Gửi liên kết đặt lại"
+    },
+    "twoFactor": {
+      "title": "Xác thực hai yếu tố",
+      "codeLabel": "Mã 6 chữ số",
+      "submitBtn": "Xác minh"
+    }
+  },
+  "common": {
+    "loading": "Đang tải…",
+    "error": "Đã xảy ra lỗi. Vui lòng thử lại.",
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "back": "Quay lại"
+  },
+  "nav": {
+    "dashboard": "Bảng điều khiển",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất",
+    "upgrade": "Nâng cấp lên Pro"
+  },
+  "dashboard": {
+    "welcomeBack": "Chào mừng trở lại, {name}!",
+    "dailyLesson": "Bài học hàng ngày",
+    "streak": "Ngày liên tiếp",
+    "upgradePrompt": "Nâng cấp lên Pro để mở khóa Báo cáo Sẵn sàng đầy đủ và Chứng chỉ N5."
+  },
+  "meta": {
+    "home": {
+      "title": "ManaboGo — Học tiếng Nhật cho JLPT N5",
+      "description": "Nền tảng đầu tiên cung cấp chứng chỉ JLPT N5 trực tuyến được công nhận."
+    },
+    "pricing": {
+      "title": "Bảng giá — ManaboGo",
+      "description": "Miễn phí mãi mãi hoặc nâng cấp lên Pro để luyện tập không giới hạn."
+    }
+  },
+  "verify": {
+    "title": "Xác minh chứng chỉ",
+    "valid": "✅ Chứng chỉ này hợp lệ",
+    "invalid": "❌ Không tìm thấy chứng chỉ hoặc đã bị thu hồi",
+    "certNumber": "Số chứng chỉ",
+    "issuedTo": "Cấp cho",
+    "issuedDate": "Ngày cấp",
+    "score": "Điểm số"
+  }
+}

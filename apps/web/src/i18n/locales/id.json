@@ -1,0 +1,73 @@
+{
+  "auth": {
+    "login": {
+      "title": "Selamat datang kembali",
+      "emailLabel": "Alamat email",
+      "passwordLabel": "Kata sandi",
+      "submitBtn": "Masuk",
+      "forgotPassword": "Lupa kata sandi?",
+      "noAccount": "Belum punya akun?"
+    },
+    "register": {
+      "title": "Buat akun Anda",
+      "emailLabel": "Alamat email",
+      "passwordLabel": "Kata sandi",
+      "nameLabel": "Nama lengkap (opsional)",
+      "submitBtn": "Buat akun",
+      "hasAccount": "Sudah punya akun?"
+    },
+    "verify": {
+      "title": "Verifikasi email Anda",
+      "successMsg": "Email terverifikasi! Sekarang Anda bisa mendapatkan XP dan lencana.",
+      "expiredMsg": "Tautan ini sudah kedaluwarsa. Minta email verifikasi baru."
+    },
+    "reset": {
+      "title": "Atur ulang kata sandi Anda",
+      "emailLabel": "Alamat email",
+      "submitBtn": "Kirim tautan atur ulang"
+    },
+    "twoFactor": {
+      "title": "Autentikasi dua faktor",
+      "codeLabel": "Kode 6 digit",
+      "submitBtn": "Verifikasi"
+    }
+  },
+  "common": {
+    "loading": "Memuat…",
+    "error": "Terjadi kesalahan. Silakan coba lagi.",
+    "save": "Simpan",
+    "cancel": "Batal",
+    "back": "Kembali"
+  },
+  "nav": {
+    "dashboard": "Dasbor",
+    "settings": "Pengaturan",
+    "logout": "Keluar",
+    "upgrade": "Upgrade ke Pro"
+  },
+  "dashboard": {
+    "welcomeBack": "Selamat datang kembali, {name}!",
+    "dailyLesson": "Pelajaran Harian",
+    "streak": "Hari beruntun",
+    "upgradePrompt": "Upgrade ke Pro untuk membuka Laporan Kesiapan lengkap dan Sertifikasi N5."
+  },
+  "meta": {
+    "home": {
+      "title": "ManaboGo — Belajar Bahasa Jepang untuk JLPT N5",
+      "description": "Platform pertama yang menawarkan sertifikat JLPT N5 online terakreditasi."
+    },
+    "pricing": {
+      "title": "Harga — ManaboGo",
+      "description": "Gratis selamanya atau upgrade ke Pro untuk latihan tak terbatas."
+    }
+  },
+  "verify": {
+    "title": "Verifikasi Sertifikat",
+    "valid": "✅ Sertifikat ini valid",
+    "invalid": "❌ Sertifikat tidak ditemukan atau telah dicabut",
+    "certNumber": "Nomor sertifikat",
+    "issuedTo": "Diterbitkan untuk",
+    "issuedDate": "Diterbitkan pada",
+    "score": "Skor"
+  }
+}
