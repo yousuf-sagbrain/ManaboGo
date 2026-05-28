@@ -1,8 +1,3 @@
-/**
- * / — Landing page (SSG — public, SEO).
- * Server Component.
- */
-
 import type { Metadata } from "next";
 import Link from "next/link";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
@@ -21,28 +16,177 @@ export const metadata: Metadata = {
   },
 };
 
+function SakuraMark() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 40 40" fill="none">
+      {[0, 72, 144, 216, 288].map((deg, i) => (
+        <ellipse
+          key={i}
+          cx="20"
+          cy="10"
+          rx="7"
+          ry="10"
+          fill="var(--sakura)"
+          opacity="0.85"
+          transform={`rotate(${deg} 20 20)`}
+        />
+      ))}
+      <circle cx="20" cy="20" r="4" fill="#FFD166" />
+    </svg>
+  );
+}
+
+const features = [
+  {
+    emoji: "🧠",
+    title: "Adaptive SRS",
+    desc: "Spaced repetition that adjusts to your forgetting curve — Kana, Kanji, Vocabulary, Grammar.",
+  },
+  {
+    emoji: "📊",
+    title: "Readiness Report",
+    desc: "5-component AI analysis of your N5 readiness. Know exactly where to focus.",
+  },
+  {
+    emoji: "🏆",
+    title: "N5 Certification",
+    desc: "The first platform offering an accredited online JLPT N5 certificate, verifiable by employers.",
+  },
+  {
+    emoji: "⚔️",
+    title: "Gamification",
+    desc: "Vocabulary battles, XP streaks, Sakura Coins, and a global leaderboard.",
+  },
+];
+
+const freeFeatures = [
+  "Kana + Basic Vocabulary SRS",
+  "1 Quick Mock / week",
+  "10 Async Battles / week",
+  "Progress tracking",
+];
+
+const proFeatures = [
+  "Everything in Free",
+  "Unlimited SRS + Mocks",
+  "Full Readiness Report",
+  "Real-time sync battles",
+  "N5 Certification attempt",
+  "Offline mode",
+];
+
 export default function LandingPage() {
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Nav */}
-      <header className="bg-white border-b border-slate-100 sticky top-0 z-30">
-        <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-          <span className="text-xl font-bold text-sakura font-display">ManaboGo</span>
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-600">
-            <Link href="/pricing" className="hover:text-slate-900 transition-colors">Pricing</Link>
-            <Link href="/about" className="hover:text-slate-900 transition-colors">About</Link>
+    <div style={{ minHeight: "100vh", background: "var(--page)", fontFamily: "var(--font-body)" }}>
+
+      {/* Sticky header */}
+      <header
+        style={{
+          position: "sticky",
+          top: 0,
+          zIndex: 30,
+          background: "#fff",
+          borderBottom: "1px solid #E8E8E4",
+          boxShadow: "0 1px 3px rgba(0,0,0,0.04)",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1152,
+            margin: "0 auto",
+            padding: "0 24px",
+            height: 64,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: 16,
+          }}
+        >
+          {/* Brand */}
+          <Link
+            href="/"
+            style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}
+          >
+            <SakuraMark />
+            <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
+              <span
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: 18,
+                  color: "var(--ink)",
+                  letterSpacing: "-0.3px",
+                }}
+              >
+                ManaboGo
+              </span>
+              <span
+                style={{
+                  fontSize: 10,
+                  fontWeight: 600,
+                  color: "var(--sakura)",
+                  letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  marginTop: 1,
+                }}
+              >
+                JLPT N5
+              </span>
+            </div>
+          </Link>
+
+          {/* Center nav — hidden on small screens via CSS media trick using max-width container */}
+          <nav
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 28,
+              fontSize: 14,
+              fontWeight: 600,
+              color: "var(--ink)",
+            }}
+            className="hidden-mobile-nav"
+          >
+            <Link href="/#features" style={{ color: "inherit", textDecoration: "none", opacity: 0.75 }}>
+              Features
+            </Link>
+            <Link href="/pricing" style={{ color: "inherit", textDecoration: "none", opacity: 0.75 }}>
+              Pricing
+            </Link>
+            <Link href="/about" style={{ color: "inherit", textDecoration: "none", opacity: 0.75 }}>
+              About
+            </Link>
           </nav>
-          <div className="flex items-center gap-3">
+
+          {/* Right actions */}
+          <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
             <LanguageSwitcher />
             <Link
               href="/login"
-              className="text-sm font-semibold text-slate-700 hover:text-slate-900"
+              style={{
+                fontSize: 14,
+                fontWeight: 600,
+                color: "var(--ink)",
+                textDecoration: "none",
+                opacity: 0.75,
+              }}
             >
               Sign in
             </Link>
             <Link
               href="/register"
-              className="bg-sakura text-white px-4 py-2 rounded-xl text-sm font-semibold shadow-md hover:shadow-lg hover:brightness-105 transition-all"
+              style={{
+                background: "var(--sakura)",
+                color: "#fff",
+                padding: "8px 20px",
+                borderRadius: 999,
+                fontSize: 14,
+                fontWeight: 700,
+                textDecoration: "none",
+                fontFamily: "var(--font-display)",
+                letterSpacing: "-0.1px",
+                boxShadow: "0 2px 8px rgba(59,130,246,0.35)",
+              }}
             >
               Start Free
             </Link>
@@ -51,122 +195,412 @@ export default function LandingPage() {
       </header>
 
       {/* Hero */}
-      <section className="max-w-6xl mx-auto px-6 py-24 text-center">
-        <div className="inline-flex items-center gap-2 bg-pink-50 border border-sakura/20 rounded-full px-4 py-1.5 text-sm font-semibold text-sakura mb-6">
+      <section
+        style={{
+          maxWidth: 1152,
+          margin: "0 auto",
+          padding: "80px 24px 72px",
+          textAlign: "center",
+        }}
+      >
+        {/* Badge */}
+        <div
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 6,
+            background: "rgba(59,130,246,0.08)",
+            border: "1px solid rgba(59,130,246,0.2)",
+            borderRadius: 999,
+            padding: "6px 16px",
+            fontSize: 13,
+            fontWeight: 600,
+            color: "var(--sakura)",
+            marginBottom: 28,
+          }}
+        >
           🎌 Now offering accredited JLPT N5 certificates
         </div>
-        <h1 className="text-5xl md:text-6xl font-bold text-slate-900 font-display leading-tight mb-6">
-          Learn Japanese.<br />
-          <span className="text-sakura">Earn your N5.</span>
+
+        {/* H1 */}
+        <h1
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 800,
+            fontSize: "clamp(40px, 6vw, 64px)",
+            lineHeight: 1.1,
+            color: "var(--ink)",
+            margin: "0 auto 20px",
+            maxWidth: 640,
+            letterSpacing: "-1px",
+          }}
+        >
+          Learn Japanese.
+          <br />
+          <span style={{ color: "var(--sakura)" }}>Earn your N5.</span>
         </h1>
-        <p className="text-xl text-slate-500 max-w-2xl mx-auto mb-10">
-          The world&apos;s most engaging JLPT N5 prep platform — with adaptive SRS, AI-powered
-          readiness reports, real-time battles, and the first online-accredited N5 certificate.
+
+        {/* Subtitle */}
+        <p
+          style={{
+            fontSize: 18,
+            lineHeight: 1.6,
+            color: "var(--muted, #6B7280)",
+            maxWidth: 560,
+            margin: "0 auto 36px",
+          }}
+        >
+          The world&apos;s most engaging JLPT N5 prep platform — with adaptive SRS,
+          AI-powered readiness reports, real-time battles, and the first online-accredited
+          N5 certificate.
         </p>
-        <div className="flex items-center justify-center gap-4 flex-wrap">
+
+        {/* CTAs */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 14,
+            flexWrap: "wrap",
+            marginBottom: 36,
+          }}
+        >
           <Link
             href="/register"
-            className="bg-sakura text-white px-8 py-3.5 rounded-xl text-base font-bold shadow-md hover:shadow-lg hover:brightness-105 active:translate-y-0.5 transition-all"
+            style={{
+              background: "var(--sakura)",
+              color: "#fff",
+              padding: "14px 32px",
+              borderRadius: 999,
+              fontSize: 15,
+              fontWeight: 700,
+              textDecoration: "none",
+              fontFamily: "var(--font-display)",
+              boxShadow: "0 4px 14px rgba(59,130,246,0.4)",
+              letterSpacing: "-0.2px",
+            }}
           >
             Start Free — No Card Required
           </Link>
           <Link
             href="/pricing"
-            className="bg-white border border-slate-200 text-slate-700 px-8 py-3.5 rounded-xl text-base font-semibold hover:bg-slate-50 transition-colors"
+            style={{
+              background: "transparent",
+              color: "var(--ink)",
+              padding: "13px 32px",
+              borderRadius: 999,
+              fontSize: 15,
+              fontWeight: 600,
+              textDecoration: "none",
+              border: "1.5px solid rgba(26,31,60,0.2)",
+              letterSpacing: "-0.1px",
+            }}
           >
             See Pricing
           </Link>
         </div>
+
+        {/* Social proof line */}
+        <p
+          style={{
+            fontSize: 13,
+            color: "var(--muted, #9CA3AF)",
+            fontWeight: 500,
+            letterSpacing: "0.01em",
+          }}
+        >
+          Used by 12,400+ N5 learners &nbsp;·&nbsp; 30+ countries &nbsp;·&nbsp; 2,100+ certificates
+        </p>
       </section>
 
-      {/* Social proof */}
-      <section className="bg-white border-y border-slate-100 py-12">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="grid grid-cols-3 gap-8 text-center">
-            {[
-              { stat: "50,000+", label: "Active learners" },
-              { stat: "30+", label: "Countries" },
-              { stat: "2,100+", label: "Certificates issued" },
-            ].map(({ stat, label }) => (
-              <div key={label}>
-                <p className="text-3xl font-bold text-sakura font-display">{stat}</p>
-                <p className="text-sm text-slate-500 mt-1">{label}</p>
-              </div>
-            ))}
-          </div>
+      {/* Stats strip */}
+      <section
+        style={{
+          background: "#fff",
+          borderTop: "1px solid #E8E8E4",
+          borderBottom: "1px solid #E8E8E4",
+          padding: "40px 24px",
+        }}
+      >
+        <div
+          style={{
+            maxWidth: 1152,
+            margin: "0 auto",
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: 24,
+            textAlign: "center",
+          }}
+        >
+          {[
+            { stat: "12,400+", label: "N5 Learners" },
+            { stat: "30+", label: "Countries" },
+            { stat: "2,100+", label: "Certificates Issued" },
+          ].map(({ stat, label }) => (
+            <div key={label}>
+              <p
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: 34,
+                  color: "var(--sakura)",
+                  margin: 0,
+                  letterSpacing: "-0.5px",
+                }}
+              >
+                {stat}
+              </p>
+              <p
+                style={{
+                  fontSize: 13,
+                  color: "var(--muted, #9CA3AF)",
+                  marginTop: 4,
+                  fontWeight: 500,
+                }}
+              >
+                {label}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Features */}
-      <section className="max-w-6xl mx-auto px-6 py-20">
-        <h2 className="text-3xl font-bold text-slate-900 font-display text-center mb-12">
+      {/* Features grid */}
+      <section
+        id="features"
+        style={{
+          maxWidth: 1152,
+          margin: "0 auto",
+          padding: "80px 24px",
+        }}
+      >
+        <h2
+          style={{
+            fontFamily: "var(--font-display)",
+            fontWeight: 800,
+            fontSize: 32,
+            color: "var(--ink)",
+            textAlign: "center",
+            marginBottom: 48,
+            letterSpacing: "-0.5px",
+          }}
+        >
           Everything you need to pass JLPT N5
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              emoji: "🧠",
-              title: "Adaptive SRS",
-              desc: "Spaced repetition that adjusts to your forgetting curve — Kana, Kanji, Vocabulary, Grammar.",
-            },
-            {
-              emoji: "📊",
-              title: "Readiness Report",
-              desc: "5-component AI analysis of your N5 readiness. Know exactly where to focus.",
-            },
-            {
-              emoji: "🏆",
-              title: "N5 Certification",
-              desc: "The first platform offering an accredited online JLPT N5 certificate, verifiable by employers.",
-            },
-            {
-              emoji: "⚔️",
-              title: "Gamification",
-              desc: "Vocabulary battles, XP streaks, Sakura Coins, and a global leaderboard.",
-            },
-          ].map(({ emoji, title, desc }) => (
-            <div key={title} className="bg-white rounded-2xl border border-slate-100 p-6 shadow-sm">
-              <div className="text-3xl mb-3">{emoji}</div>
-              <h3 className="font-semibold text-slate-900 mb-2">{title}</h3>
-              <p className="text-sm text-slate-500">{desc}</p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+            gap: 20,
+          }}
+        >
+          {features.map(({ emoji, title, desc }) => (
+            <div
+              key={title}
+              style={{
+                background: "#fff",
+                border: "1px solid #E8E8E4",
+                borderRadius: 16,
+                padding: "28px 24px",
+                boxShadow: "0 1px 4px rgba(0,0,0,0.04)",
+              }}
+            >
+              <div style={{ fontSize: 32, marginBottom: 12 }}>{emoji}</div>
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 700,
+                  fontSize: 16,
+                  color: "var(--ink)",
+                  marginBottom: 8,
+                }}
+              >
+                {title}
+              </h3>
+              <p style={{ fontSize: 14, lineHeight: 1.6, color: "var(--muted, #6B7280)", margin: 0 }}>
+                {desc}
+              </p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Pricing preview */}
-      <section className="bg-white border-y border-slate-100 py-20">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-3xl font-bold text-slate-900 font-display mb-4">Simple pricing</h2>
-          <p className="text-slate-500 mb-10">
+      <section
+        style={{
+          background: "#fff",
+          borderTop: "1px solid #E8E8E4",
+          borderBottom: "1px solid #E8E8E4",
+          padding: "80px 24px",
+        }}
+      >
+        <div style={{ maxWidth: 720, margin: "0 auto", textAlign: "center" }}>
+          <h2
+            style={{
+              fontFamily: "var(--font-display)",
+              fontWeight: 800,
+              fontSize: 32,
+              color: "var(--ink)",
+              marginBottom: 12,
+              letterSpacing: "-0.5px",
+            }}
+          >
+            Simple pricing
+          </h2>
+          <p style={{ fontSize: 16, color: "var(--muted, #6B7280)", marginBottom: 48 }}>
             Start free forever. Upgrade when you need unlimited practice and N5 certification.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-            {/* Free */}
-            <div className="bg-slate-50 rounded-2xl p-6 border border-slate-200">
-              <p className="text-sm font-semibold text-slate-500 uppercase tracking-wide mb-2">Free</p>
-              <p className="text-3xl font-bold text-slate-900 mb-4">$0 <span className="text-sm font-normal text-slate-400">/ month</span></p>
-              <ul className="space-y-2 text-sm text-slate-600 mb-6">
-                {["Kana + Basic Vocabulary SRS", "1 Quick Mock / week", "10 Async Battles / week", "Progress tracking"].map((f) => (
-                  <li key={f} className="flex items-center gap-2"><span className="text-jade">✓</span>{f}</li>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+              gap: 20,
+              textAlign: "left",
+            }}
+          >
+            {/* Free plan */}
+            <div
+              style={{
+                background: "var(--page, #FAFAF9)",
+                border: "1px solid #E8E8E4",
+                borderRadius: 20,
+                padding: "32px 28px",
+              }}
+            >
+              <p
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: "var(--muted, #9CA3AF)",
+                  marginBottom: 8,
+                }}
+              >
+                Free
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: 36,
+                  color: "var(--ink)",
+                  marginBottom: 4,
+                  letterSpacing: "-0.5px",
+                }}
+              >
+                $0{" "}
+                <span
+                  style={{ fontSize: 15, fontWeight: 400, color: "var(--muted, #9CA3AF)" }}
+                >
+                  / month
+                </span>
+              </p>
+              <ul style={{ listStyle: "none", padding: 0, margin: "20px 0 28px", display: "flex", flexDirection: "column", gap: 10 }}>
+                {freeFeatures.map((f) => (
+                  <li key={f} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14, color: "var(--ink)", opacity: 0.8 }}>
+                    <span style={{ color: "#22C55E", fontWeight: 700 }}>✓</span>
+                    {f}
+                  </li>
                 ))}
               </ul>
-              <Link href="/register" className="block text-center bg-slate-900 text-white rounded-xl py-2.5 font-semibold hover:bg-slate-800 transition-colors">
+              <Link
+                href="/register"
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  background: "var(--ink)",
+                  color: "#fff",
+                  borderRadius: 12,
+                  padding: "12px 0",
+                  fontWeight: 700,
+                  fontSize: 14,
+                  textDecoration: "none",
+                  fontFamily: "var(--font-display)",
+                }}
+              >
                 Get started free
               </Link>
             </div>
-            {/* Pro */}
-            <div className="bg-sakura rounded-2xl p-6 text-white relative overflow-hidden">
-              <div className="absolute top-4 right-4 bg-white/20 rounded-full px-3 py-1 text-xs font-bold">POPULAR</div>
-              <p className="text-sm font-semibold uppercase tracking-wide mb-2 opacity-80">Pro</p>
-              <p className="text-3xl font-bold mb-1">$12 <span className="text-sm font-normal opacity-70">/ month</span></p>
-              <p className="text-xs opacity-70 mb-4">Prices adjusted for your region (PPP)</p>
-              <ul className="space-y-2 text-sm mb-6">
-                {["Everything in Free", "Unlimited SRS + Mocks", "Full Readiness Report", "Real-time sync battles", "N5 Certification attempt", "Offline mode"].map((f) => (
-                  <li key={f} className="flex items-center gap-2"><span>✓</span>{f}</li>
+
+            {/* Pro plan */}
+            <div
+              style={{
+                background: "var(--sakura)",
+                borderRadius: 20,
+                padding: "32px 28px",
+                color: "#fff",
+                position: "relative",
+                overflow: "hidden",
+                boxShadow: "0 8px 32px rgba(59,130,246,0.35)",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  top: 16,
+                  right: 16,
+                  background: "rgba(255,255,255,0.2)",
+                  borderRadius: 999,
+                  padding: "4px 12px",
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: "0.06em",
+                }}
+              >
+                POPULAR
+              </div>
+              <p
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  opacity: 0.8,
+                  marginBottom: 8,
+                }}
+              >
+                Pro
+              </p>
+              <p
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: 36,
+                  marginBottom: 4,
+                  letterSpacing: "-0.5px",
+                }}
+              >
+                $12{" "}
+                <span style={{ fontSize: 15, fontWeight: 400, opacity: 0.75 }}>/ month</span>
+              </p>
+              <p style={{ fontSize: 12, opacity: 0.7, marginBottom: 20 }}>
+                Prices adjusted for your region (PPP)
+              </p>
+              <ul style={{ listStyle: "none", padding: 0, margin: "0 0 28px", display: "flex", flexDirection: "column", gap: 10 }}>
+                {proFeatures.map((f) => (
+                  <li key={f} style={{ display: "flex", alignItems: "center", gap: 10, fontSize: 14 }}>
+                    <span style={{ fontWeight: 700 }}>✓</span>
+                    {f}
+                  </li>
                 ))}
               </ul>
-              <Link href="/register?plan=pro" className="block text-center bg-white text-sakura rounded-xl py-2.5 font-bold hover:bg-pink-50 transition-colors">
+              <Link
+                href="/register?plan=pro"
+                style={{
+                  display: "block",
+                  textAlign: "center",
+                  background: "#fff",
+                  color: "var(--sakura)",
+                  borderRadius: 12,
+                  padding: "12px 0",
+                  fontWeight: 700,
+                  fontSize: 14,
+                  textDecoration: "none",
+                  fontFamily: "var(--font-display)",
+                }}
+              >
                 Get Pro
               </Link>
             </div>
@@ -175,11 +609,28 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="max-w-6xl mx-auto px-6 py-10 flex items-center justify-between text-sm text-slate-400">
-        <p>© 2026 ManaboGo. All rights reserved.</p>
-        <div className="flex items-center gap-4">
-          <Link href="/about" className="hover:text-slate-600">About</Link>
-          <Link href="/pricing" className="hover:text-slate-600">Pricing</Link>
+      <footer
+        style={{
+          maxWidth: 1152,
+          margin: "0 auto",
+          padding: "36px 24px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          fontSize: 13,
+          color: "var(--muted, #9CA3AF)",
+          flexWrap: "wrap",
+          gap: 12,
+        }}
+      >
+        <p style={{ margin: 0 }}>© 2026 ManaboGo. All rights reserved.</p>
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <Link href="/about" style={{ color: "inherit", textDecoration: "none" }}>
+            About
+          </Link>
+          <Link href="/pricing" style={{ color: "inherit", textDecoration: "none" }}>
+            Pricing
+          </Link>
           <LanguageSwitcher />
         </div>
       </footer>

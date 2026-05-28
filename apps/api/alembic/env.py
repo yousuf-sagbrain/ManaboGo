@@ -22,6 +22,15 @@ if database_url:
     # SQLAlchemy async engine needs postgresql+asyncpg://
     if database_url.startswith("postgresql://"):
         database_url = database_url.replace("postgresql://", "postgresql+asyncpg://", 1)
+    # Strip asyncpg-only params (sslmode, channel_binding) that SQLAlchemy
+    # doesn't forward — Neon SSL is enforced server-side anyway.
+    from urllib.parse import urlparse, urlencode, parse_qs, urlunparse
+    parsed = urlparse(database_url)
+    qs = parse_qs(parsed.query, keep_blank_values=True)
+    qs.pop("sslmode", None)
+    qs.pop("channel_binding", None)
+    clean_qs = urlencode({k: v[0] for k, v in qs.items()})
+    database_url = urlunparse(parsed._replace(query=clean_qs))
     config.set_main_option("sqlalchemy.url", database_url)
 
 target_metadata = None  # Raw SQL migrations — no ORM metadata needed

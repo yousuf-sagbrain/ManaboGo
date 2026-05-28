@@ -6,6 +6,7 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "@/lib/auth";
 import { AppSidebar } from "@/components/layout/AppSidebar";
+import { AuthHydration } from "@/components/auth/AuthHydration";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const session = await getServerSession();
@@ -15,13 +16,11 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   }
 
   return (
-    <div className="flex h-screen overflow-hidden bg-slate-50">
-      {/* Sidebar — client component, reads role from Zustand after hydration */}
+    <div style={{ display: "flex", width: "100%", height: "100vh", background: "var(--page)", overflow: "hidden" }}>
+      <AuthHydration />
       <AppSidebar />
-
-      {/* Main content */}
-      <main className="flex-1 overflow-y-auto">
-        <div className="max-w-7xl mx-auto px-6 py-8">{children}</div>
+      <main style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}>
+        {children}
       </main>
     </div>
   );

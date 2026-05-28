@@ -10,10 +10,15 @@ import secrets
 from datetime import datetime, timedelta, timezone
 from typing import Any
 
+import warnings
+
 import pyotp
 import qrcode
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+
+# passlib 1.7.x reads bcrypt.__about__.__version__ which bcrypt 4.x removed
+warnings.filterwarnings("ignore", ".*error reading bcrypt version.*", category=UserWarning)
 
 from app.config import settings
 

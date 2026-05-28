@@ -2,104 +2,238 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Design Tokens ──────────────────────────────────────────── */
+/* ── ManaboGo Design Tokens ─────────────────────────────────── */
 :root {
-  /* Brand colors */
-  --color-sakura: #FF6B9D;
-  --color-indigo: #4F46E5;
-  --color-jade: #10B981;
-  --color-amber: #F59E0B;
-  --color-slate-900: #0F172A;
-  --color-slate-50: #F8FAFC;
+  /* Brand palette — --sakura is the blue primary CTA (token name kept for stability) */
+  --sakura: #3B82F6;
+  --sakura-press: #2563EB;
+  --sakura-ring: #BFDBFE;
+  --ink: #1A1F3C;
+  --ink-soft: #2A2F4F;
+  --indigo: #7C3AED;
+  --gold: #FFD166;
+  --mint: #06D6A0;
+  --mint-soft: #04B888;
+  --page: #FAFAF9;
+  --surface: #FFFFFF;
+  --surface-2: #F7F7F4;
+  --border: #E8E8E8;
+  --border-soft: #F0F0EE;
+  --muted: #6B7280;
+  --muted-soft: #9CA3AF;
+  --body: #2A2F3E;
+  --danger: #FF4757;
+
+  /* Tint surfaces */
+  --tint-sakura: #EFF6FF;
+  --tint-sakura-2: #DBEAFE;
+  --tint-mint: #EDFFF9;
+  --tint-red: #FFF0F0;
+  --tint-gold: #FFFBE6;
+  --tint-indigo: #F3EFFE;
+  --tint-amber: #FFF7E0;
+  --amber: #F59E0B;
 
   /* Typography */
-  --font-display: var(--font-noto-sans-jp), sans-serif;
-  --font-body: var(--font-inter), sans-serif;
-  --font-mono: var(--font-jetbrains-mono), monospace;
+  --font-display: var(--font-nunito), "Nunito", system-ui, sans-serif;
+  --font-body: var(--font-dm-sans), "DM Sans", system-ui, sans-serif;
+  --font-jp: var(--font-noto-sans-jp), "Noto Sans JP", system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), "JetBrains Mono", ui-monospace, monospace;
 
-  /* Spacing scale */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-  --space-12: 3rem;
-  --space-16: 4rem;
+  /* Radii */
+  --r-card: 16px;
+  --r-chip: 12px;
+  --r-badge: 8px;
+  --r-pill: 999px;
 
-  /* Border radius */
-  --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
-  --radius-lg: 1rem;
-  --radius-xl: 1.5rem;
-
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.32, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 400ms;
 }
 
-/* ── Base styles ────────────────────────────────────────────── */
-html {
-  font-family: var(--font-body);
-  color: #0F172A;
-  background-color: #F8FAFC;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Dark mode */
+[data-theme="dark"] {
+  --page: #111318;
+  --surface: #1C1F2E;
+  --surface-2: #161928;
+  --ink: #EAEAF0;
+  --ink-soft: #C9CADB;
+  --body: #D7D9E5;
+  --muted: #8C92A8;
+  --muted-soft: #6A708A;
+  --border: #2E3150;
+  --border-soft: #232646;
+  --tint-sakura: #16243C;
+  --tint-mint: #142A28;
+  --tint-red: #2A1818;
+  --tint-gold: #2A2516;
+  --tint-indigo: #221A36;
+  --tint-amber: #2A1E0E;
+  --sakura-ring: #2A4670;
 }
+
+/* ── Base ────────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
 
 body {
+  font-family: var(--font-body);
+  color: var(--body);
+  background: var(--page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
   min-height: 100vh;
 }
 
-/* ── Typography utilities ───────────────────────────────────── */
-.font-display {
+.jp  { font-family: var(--font-jp);   font-feature-settings: "kern" 1; }
+.mono { font-family: var(--font-mono); }
+
+/* ── Label utility ───────────────────────────────────────────── */
+.label {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ── Button system ───────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  border-radius: var(--r-pill);
+  border: none;
+  cursor: pointer;
+  padding: 0 22px;
+  height: 44px;
+  transition: background var(--dur-base) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+  white-space: nowrap;
+  text-decoration: none;
 }
-
-.font-mono {
-  font-family: var(--font-mono);
-}
-
-/* ── Focus styles ───────────────────────────────────────────── */
-:focus-visible {
-  outline: 2px solid var(--color-sakura);
-  outline-offset: 2px;
-}
-
-/* ── Scrollbar ──────────────────────────────────────────────── */
-::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
-}
-::-webkit-scrollbar-track {
+.btn:active { transform: scale(0.97); }
+.btn-sakura { background: var(--sakura); color: #fff; }
+.btn-sakura:hover { background: var(--sakura-press); }
+.btn-ghost {
   background: transparent;
+  color: var(--ink);
+  border: 1.5px solid var(--border);
 }
-::-webkit-scrollbar-thumb {
-  background-color: #CBD5E1;
-  border-radius: 3px;
+.btn-ghost:hover { background: var(--surface-2); }
+.btn-ghost-sakura {
+  background: transparent;
+  color: var(--sakura);
+  border: 1.5px solid var(--sakura);
+}
+.btn-ghost-sakura:hover { background: var(--tint-sakura); }
+.btn-lg { height: 48px; font-size: 16px; padding: 0 26px; }
+.btn-sm { height: 36px; font-size: 13px; padding: 0 16px; }
+
+/* ── Card ────────────────────────────────────────────────────── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  padding: 20px;
 }
 
-/* ── Animations ─────────────────────────────────────────────── */
+/* ── Pills ───────────────────────────────────────────────────── */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 24px;
+  padding: 0 10px;
+  border-radius: var(--r-pill);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.pill-pro     { background: var(--tint-indigo); color: var(--indigo); }
+.pill-free    { background: var(--surface-2);   color: var(--muted); }
+.pill-mint    { background: var(--tint-mint);   color: var(--mint-soft); }
+.pill-sakura  { background: var(--tint-sakura); color: var(--sakura); }
+.pill-danger  { background: var(--tint-red);    color: var(--danger); }
+.pill-gold    { background: var(--tint-gold);   color: #B07A00; }
+
+/* ── Scrollbar ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background-color: #CBD5E1; border-radius: 3px; }
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* ── Focus ───────────────────────────────────────────────────── */
+:focus-visible { outline: 2px solid var(--sakura); outline-offset: 2px; }
+
+/* ── Animations ──────────────────────────────────────────────── */
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-
 @keyframes slideUp {
   from { opacity: 0; transform: translateY(8px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
-.animate-fade-in {
-  animation: fadeIn 0.2s ease-in-out;
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(4px); }
+  40%      { transform: translateX(-4px); }
+  60%      { transform: translateX(4px); }
+  80%      { transform: translateX(-4px); }
+}
+@keyframes xpBurst {
+  0%   { opacity: 0; transform: translateY(0); }
+  20%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-28px); }
+}
+@keyframes certIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0   rgba(59,130,246,0.55); }
+  70%  { box-shadow: 0 0 0 8px rgba(59,130,246,0); }
+  100% { box-shadow: 0 0 0 0   rgba(59,130,246,0); }
 }
 
-.animate-slide-up {
-  animation: slideUp 0.3s ease-out;
-}
+.animate-fade-in  { animation: fadeIn 0.2s ease-in-out; }
+.animate-slide-up { animation: slideUp 0.3s ease-out; }
+.shake     { animation: shake   240ms ease-in-out; }
+.xp-burst  { animation: xpBurst 700ms var(--ease-out) forwards; }
+.cert-in   { animation: certIn  500ms var(--ease-out); }
+.pulse-dot { animation: pulse   1.6s  var(--ease-out) infinite; }
 
-/* ── Scaffold banner ────────────────────────────────────────── */
+/* ── Social auth button hover ────────────────────────────────── */
+.social-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 44px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  transition: background 0.15s;
+}
+.social-btn:hover { background: var(--tint-sakura); }
+
+/* ── Phase-0 banner ──────────────────────────────────────────── */
 .phase0-banner {
   background: linear-gradient(90deg, #FEF3C7 0%, #FDE68A 100%);
   border-bottom: 2px solid #F59E0B;

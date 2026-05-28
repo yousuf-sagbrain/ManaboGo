@@ -1,11 +1,18 @@
 """Application configuration via pydantic-settings (reads .env)."""
 
+from pathlib import Path
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+# Walk up from apps/api/ to find the monorepo root .env
+_HERE = Path(__file__).resolve().parent  # apps/api/app
+_MONOREPO_ROOT = _HERE.parent.parent.parent  # SagBrainN5/manabogo
+_ENV_FILE = _MONOREPO_ROOT / ".env"
 
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=str(_ENV_FILE),
         env_file_encoding="utf-8",
         case_sensitive=False,
         extra="ignore",

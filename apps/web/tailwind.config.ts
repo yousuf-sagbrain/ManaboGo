@@ -9,61 +9,97 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // ManaboGo design tokens
-        sakura: "#FF6B9D",
+        // ManaboGo design tokens — mirrors tokens.css
+        sakura: {
+          DEFAULT: "#3B82F6",
+          press:   "#2563EB",
+          ring:    "#BFDBFE",
+        },
+        ink: {
+          DEFAULT: "#1A1F3C",
+          soft:    "#2A2F4F",
+        },
         indigo: {
-          DEFAULT: "#4F46E5",
-          50: "#EEF2FF",
-          100: "#E0E7FF",
-          200: "#C7D2FE",
-          600: "#4F46E5",
-          700: "#4338CA",
+          DEFAULT: "#7C3AED",
+          tint:    "#F3EFFE",
         },
-        jade: "#10B981",
-        amber: {
-          DEFAULT: "#F59E0B",
-          50: "#FFFBEB",
-          100: "#FEF3C7",
-          700: "#B45309",
+        gold:  "#FFD166",
+        mint: {
+          DEFAULT: "#06D6A0",
+          soft:    "#04B888",
+          tint:    "#EDFFF9",
         },
-        slate: {
-          50: "#F8FAFC",
-          100: "#F1F5F9",
-          200: "#E2E8F0",
-          400: "#94A3B8",
-          600: "#475569",
-          700: "#334155",
-          900: "#0F172A",
+        page:    "#FAFAF9",
+        surface: {
+          DEFAULT: "#FFFFFF",
+          2:       "#F7F7F4",
         },
+        border: {
+          DEFAULT: "#E8E8E8",
+          soft:    "#F0F0EE",
+        },
+        muted: {
+          DEFAULT: "#6B7280",
+          soft:    "#9CA3AF",
+        },
+        body:   "#2A2F3E",
+        danger: "#FF4757",
+        amber:  "#F59E0B",
       },
       fontFamily: {
-        display: ["var(--font-display)", "sans-serif"],
-        body: ["var(--font-body)", "sans-serif"],
-        mono: ["var(--font-mono)", "monospace"],
+        display: ["var(--font-display)", "Nunito", "sans-serif"],
+        body:    ["var(--font-body)",    "DM Sans", "sans-serif"],
+        jp:      ["var(--font-jp)",      "Noto Sans JP", "sans-serif"],
+        mono:    ["var(--font-mono)",    "JetBrains Mono", "monospace"],
       },
       borderRadius: {
-        xl: "0.75rem",
-        "2xl": "1rem",
-        "3xl": "1.5rem",
+        card:  "16px",
+        chip:  "12px",
+        badge: "8px",
+        pill:  "999px",
       },
       boxShadow: {
-        sm: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        DEFAULT: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-        md: "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-        lg: "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+        card: "0 4px 14px -4px rgba(26,31,60,0.08), 0 1px 3px rgba(0,0,0,0.04)",
+        "card-hover": "0 8px 24px -6px rgba(26,31,60,0.14), 0 2px 6px rgba(0,0,0,0.06)",
+        sidebar: "2px 0 20px rgba(0,0,0,0.06)",
       },
       animation: {
-        "fade-in": "fadeIn 0.2s ease-in-out",
+        "fade-in":  "fadeIn 0.2s ease-in-out",
         "slide-up": "slideUp 0.3s ease-out",
+        "shake":    "shake 240ms ease-in-out",
+        "xp-burst": "xpBurst 700ms cubic-bezier(0.16,1,0.32,1) forwards",
+        "cert-in":  "certIn 500ms cubic-bezier(0.16,1,0.32,1)",
+        "pulse-dot":"pulse 1.6s cubic-bezier(0.16,1,0.32,1) infinite",
       },
       keyframes: {
         fadeIn: {
-          "0%": { opacity: "0" },
+          "0%":   { opacity: "0" },
           "100%": { opacity: "1" },
         },
         slideUp: {
-          "0%": { opacity: "0", transform: "translateY(8px)" },
+          "0%":   { opacity: "0", transform: "translateY(8px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        shake: {
+          "0%, 100%": { transform: "translateX(0)" },
+          "20%":      { transform: "translateX(4px)" },
+          "40%":      { transform: "translateX(-4px)" },
+          "60%":      { transform: "translateX(4px)" },
+          "80%":      { transform: "translateX(-4px)" },
+        },
+        xpBurst: {
+          "0%":   { opacity: "0", transform: "translateY(0)" },
+          "20%":  { opacity: "1" },
+          "100%": { opacity: "0", transform: "translateY(-28px)" },
+        },
+        certIn: {
+          from: { opacity: "0", transform: "scale(0.96)" },
+          to:   { opacity: "1", transform: "scale(1)" },
+        },
+        pulse: {
+          "0%":   { boxShadow: "0 0 0 0 rgba(59,130,246,0.55)" },
+          "70%":  { boxShadow: "0 0 0 8px rgba(59,130,246,0)" },
+          "100%": { boxShadow: "0 0 0 0 rgba(59,130,246,0)" },
         },
       },
     },

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { TwoFactorInput } from "@/components/auth/TwoFactorInput";
 import { useAuthStore, roleHomeRoute } from "@/store/authStore";
-import type { TokenResponse, Requires2FAResponse } from "@manabogo/shared";
+import type { TokenResponse } from "@manabogo/shared";
 import { Role } from "@manabogo/shared";
 
 export function LoginForm() {
@@ -20,9 +20,8 @@ export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [requires2fa, setRequires2fa] = useState(false);
-  const [requires2faSetup, setRequires2faSetup] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent, totpCode?: string) => {
+  const handleSubmit = async (e: React.SyntheticEvent, totpCode?: string) => {
     e.preventDefault();
     setError("");
     setIsLoading(true);
@@ -38,12 +37,19 @@ export function LoginForm() {
       const data = await resp.json();
 
       if (!resp.ok) {
-        setError("Invalid email or password.");
+        // Surface the FastAPI detail string; fall back to a generic message
+        const detail = typeof data?.detail === "string" ? data.detail : null;
+        if (resp.status === 401 || resp.status === 403) {
+          setError(detail ?? "Invalid email or password.");
+        } else if (resp.status === 429) {
+          setError("Too many attempts. Please wait a few minutes and try again.");
+        } else {
+          setError(detail ?? "Something went wrong. Please try again.");
+        }
         return;
       }
 
       if ("requires_2fa_setup" in data && data.requires_2fa_setup) {
-        setRequires2faSetup(true);
         router.push("/auth/2fa-setup");
         return;
       }
@@ -75,7 +81,7 @@ export function LoginForm() {
     return (
       <TwoFactorInput
         onSubmit={(code) =>
-          handleSubmit({ preventDefault: () => {} } as React.FormEvent, code)
+          handleSubmit({ preventDefault: () => {} } as React.SyntheticEvent, code)
         }
         isLoading={isLoading}
         error={error}

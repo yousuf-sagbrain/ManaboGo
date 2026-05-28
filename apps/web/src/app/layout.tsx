@@ -1,21 +1,28 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono, Noto_Sans_JP } from "next/font/google";
+import { Nunito, DM_Sans, Noto_Sans_JP, JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
 
 // ── Fonts ──────────────────────────────────────────────────────
+const nunito = Nunito({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-nunito",
+  display: "swap",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-dm-sans",
+  display: "swap",
+});
+
 const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
   variable: "--font-noto-sans-jp",
-  display: "swap",
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-inter",
   display: "swap",
 });
 
@@ -58,15 +65,10 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang={locale}
-      className={`${notoSansJP.variable} ${inter.variable} ${jetbrainsMono.variable}`}
+      className={`${nunito.variable} ${dmSans.variable} ${notoSansJP.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
-      <body
-        className="font-body bg-slate-50 text-slate-900 antialiased"
-        style={{
-          fontFamily: "var(--font-body)",
-        }}
-      >
+      <body>
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>
