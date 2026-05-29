@@ -126,6 +126,16 @@ class OAuthNotImplementedResponse(BaseModel):
     provider: str
 
 
+# ── Resend Verification ───────────────────────────────────────
+
+class ResendVerificationRequest(BaseModel):
+    email: EmailStr
+
+
+class ResendVerificationResponse(BaseModel):
+    message: str = "If your email is unverified, a new link has been sent."
+
+
 # ── Generic ───────────────────────────────────────────────────
 
 class MessageResponse(BaseModel):

@@ -39,7 +39,18 @@ class SessionInfo(BaseModel):
 
 
 class GdprExportResponse(BaseModel):
-    message: str = "Your data export has been queued. You will receive an email within 72 hours."
+    exported_at: str
+    schema_version: str
+    account: dict
+    stats: dict
+    active_sessions: list[dict]
+    srs_progress: list[dict]
+    lessons_completed: list[dict]
+    mock_test_results: list[dict]
+
+
+class AvatarUploadResponse(BaseModel):
+    avatar_url: str
 
 
 class DeleteAccountResponse(BaseModel):

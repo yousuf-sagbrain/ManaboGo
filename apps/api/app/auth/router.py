@@ -98,6 +98,18 @@ async def verify_email(token: str, conn=Depends(get_db_conn)):
     )
 
 
+# ── POST /auth/resend-verification ───────────────────────────
+
+@router.post("/resend-verification", response_model=schemas.ResendVerificationResponse)
+async def resend_verification(
+    body: schemas.ResendVerificationRequest,
+    conn=Depends(get_db_conn),
+):
+    # Always returns 200 — enumeration-safe
+    await service.resend_verification_email(conn=conn, email=body.email)
+    return schemas.ResendVerificationResponse()
+
+
 # ── POST /auth/login ──────────────────────────────────────────
 
 @router.post("/login")

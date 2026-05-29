@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useAuthStore } from "@/store/authStore";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
@@ -62,6 +62,8 @@ export default function SettingsPage() {
   );
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8000";
+
 function ProfileTab() {
   const user = useAuthStore((s) => s.user);
   const setAuth = useAuthStore((s) => s.setAuth);
@@ -69,6 +71,12 @@ function ProfileTab() {
   const [fullName, setFullName] = useState(user?.fullName ?? "");
   const [isSaving, setIsSaving] = useState(false);
   const [message, setMessage] = useState("");
+
+  // Avatar state
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [avatarPreview, setAvatarPreview] = useState<string | null>(user?.avatarUrl ?? null);
+  const [isUploadingAvatar, setIsUploadingAvatar] = useState(false);
+  const [avatarError, setAvatarError] = useState("");
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -89,6 +97,67 @@ function ProfileTab() {
     }
   };
 
+  const handleAvatarChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setAvatarError("");
+
+    // Client-side guard — mirrors backend limits
+    const allowed = ["image/jpeg", "image/png", "image/webp"];
+    if (!allowed.includes(file.type)) {
+      setAvatarError("Only JPEG, PNG, or WebP images are allowed.");
+      return;
+    }
+    if (file.size > 2 * 1024 * 1024) {
+      setAvatarError("Image must be 2 MB or smaller.");
+      return;
+    }
+
+    // Optimistic local preview
+    const objectUrl = URL.createObjectURL(file);
+    setAvatarPreview(objectUrl);
+    setIsUploadingAvatar(true);
+
+    try {
+      const form = new FormData();
+      form.append("file", file);
+
+      // Raw fetch — apiFetch forces application/json which breaks multipart
+      const resp = await fetch(`${API_URL}/users/me/avatar`, {
+        method: "POST",
+        headers: accessToken ? { Authorization: `Bearer ${accessToken}` } : {},
+        body: form,
+        credentials: "include",
+      });
+
+      if (!resp.ok) {
+        const err = await resp.json().catch(() => ({}));
+        throw new Error(err.detail ?? "Upload failed.");
+      }
+
+      const { avatar_url } = await resp.json();
+
+      // Swap optimistic blob URL for the permanent server URL
+      URL.revokeObjectURL(objectUrl);
+      setAvatarPreview(avatar_url);
+
+      if (user && accessToken) {
+        setAuth(accessToken, { ...user, avatarUrl: avatar_url });
+      }
+    } catch (err: unknown) {
+      URL.revokeObjectURL(objectUrl);
+      setAvatarPreview(user?.avatarUrl ?? null);
+      setAvatarError(err instanceof Error ? err.message : "Upload failed.");
+    } finally {
+      setIsUploadingAvatar(false);
+      // Reset input so the same file can be re-selected after an error
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
+  };
+
+  const initials = (user?.fullName ?? user?.email ?? "U")[0].toUpperCase();
+
   return (
     <form onSubmit={handleSave} className="space-y-5">
       {message && (
@@ -100,11 +169,51 @@ function ProfileTab() {
       <div>
         <label className="text-sm font-medium text-slate-700 block mb-1.5">Avatar</label>
         <div className="flex items-center gap-4">
-          <div className="w-16 h-16 rounded-full bg-sakura/10 flex items-center justify-center text-sakura font-bold text-xl">
-            {(user?.fullName ?? user?.email ?? "U")[0].toUpperCase()}
+          {/* Avatar preview — image if uploaded, initials fallback */}
+          <button
+            type="button"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={isUploadingAvatar}
+            className="relative w-16 h-16 rounded-full overflow-hidden bg-sakura/10 flex items-center justify-center text-sakura font-bold text-xl flex-shrink-0 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+            aria-label="Change avatar"
+          >
+            {avatarPreview ? (
+              <img src={avatarPreview} alt="Avatar" className="w-full h-full object-cover" />
+            ) : (
+              <span>{initials}</span>
+            )}
+            {isUploadingAvatar && (
+              <span className="absolute inset-0 bg-black/30 flex items-center justify-center">
+                <svg className="animate-spin w-5 h-5 text-white" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                </svg>
+              </span>
+            )}
+          </button>
+
+          <div className="space-y-1">
+            <Button
+              type="button"
+              variant="secondary"
+              disabled={isUploadingAvatar}
+              onClick={() => fileInputRef.current?.click()}
+            >
+              {isUploadingAvatar ? "Uploading…" : "Upload photo"}
+            </Button>
+            <p className="text-xs text-slate-400">JPEG, PNG, or WebP · max 2 MB</p>
+            {avatarError && <p className="text-xs text-red-500">{avatarError}</p>}
           </div>
-          <Button type="button" variant="secondary" disabled>Upload photo — Coming soon</Button>
         </div>
+
+        {/* Hidden file input */}
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/jpeg,image/png,image/webp"
+          className="sr-only"
+          onChange={handleAvatarChange}
+        />
       </div>
       <Button type="submit" isLoading={isSaving}>Save changes</Button>
     </form>
@@ -227,11 +336,19 @@ function PrivacyTab() {
 
   const handleExport = async () => {
     setIsExporting(true);
+    setExportMsg("");
     try {
-      await apiFetch("/users/me/gdpr-export", { method: "POST" });
-      setExportMsg("Your data export has been queued. You'll receive an email within 72 hours.");
+      const data = await apiFetch<object>("/users/me/gdpr-export", { method: "GET" });
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "manabogo-data-export.json";
+      a.click();
+      URL.revokeObjectURL(url);
+      setExportMsg("Download started.");
     } catch {
-      setExportMsg("Failed to queue export. Please try again.");
+      setExportMsg("Export failed. Please try again.");
     }
     setIsExporting(false);
   };

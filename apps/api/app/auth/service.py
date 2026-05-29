@@ -122,6 +122,73 @@ async def register_user(
     return dict(user)
 
 
+# ── Resend Email Verification ─────────────────────────────────
+
+async def resend_verification_email(conn: asyncpg.Connection, email: str) -> None:
+    """
+    Always succeeds (enumeration-safe).
+    Invalidates any unused tokens, creates a new one, sends email.
+    Enforces a 2-minute cooldown via the most-recent token's created_at.
+    """
+    user = await conn.fetchrow(
+        "SELECT id, email, email_verified FROM users WHERE email = $1 AND deleted_at IS NULL",
+        email.lower(),
+    )
+    if not user or user["email_verified"]:
+        return  # Silent — don't reveal account existence or already-verified status
+
+    # Cooldown: block if a token was issued within the last 2 minutes
+    recent = await conn.fetchrow(
+        """
+        SELECT created_at FROM email_verification_tokens
+        WHERE user_id = $1 AND used_at IS NULL
+        ORDER BY created_at DESC
+        LIMIT 1
+        """,
+        user["id"],
+    )
+    if recent:
+        age = (datetime.now(timezone.utc) - recent["created_at"]).total_seconds()
+        if age < 120:
+            return  # Silently drop — client will show a countdown anyway
+
+    # Invalidate all existing unused tokens for this user
+    await conn.execute(
+        """
+        UPDATE email_verification_tokens
+        SET used_at = now()
+        WHERE user_id = $1 AND used_at IS NULL
+        """,
+        user["id"],
+    )
+
+    # Create a fresh 24-hour token
+    token = secrets.token_urlsafe(48)
+    expires_at = datetime.now(timezone.utc) + timedelta(hours=24)
+    await conn.execute(
+        """
+        INSERT INTO email_verification_tokens (user_id, token, expires_at)
+        VALUES ($1, $2, $3)
+        """,
+        user["id"],
+        token,
+        expires_at,
+    )
+
+    verify_url = f"{settings.app_url}/verify-email?token={token}"
+    await send_email(
+        to=str(user["email"]),
+        subject="Verify your ManaboGo email",
+        html=f"""
+        <h2>New verification link</h2>
+        <p>Click the link below to verify your email address:</p>
+        <p><a href="{verify_url}">Verify Email</a></p>
+        <p>This link expires in 24 hours.</p>
+        <p>If you did not request this, please ignore this email.</p>
+        """,
+    )
+
+
 # ── Email Verification ────────────────────────────────────────
 
 async def verify_email(conn: asyncpg.Connection, token: str) -> None:

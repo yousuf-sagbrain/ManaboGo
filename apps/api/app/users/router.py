@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 
 from app.auth.dependencies import CurrentUser, get_current_user
 from app.database import get_db_conn
@@ -89,12 +89,46 @@ async def revoke_session(
         raise HTTPException(status_code=404, detail="Session not found.")
 
 
-@router.post("/me/gdpr-export", status_code=202)
+@router.post("/me/avatar", response_model=schemas.AvatarUploadResponse)
+async def upload_avatar(
+    current_user: CurrentUser = Depends(get_current_user),
+    conn=Depends(get_db_conn),
+    file: UploadFile = File(...),
+):
+    data = await file.read()
+    try:
+        avatar_url = await service.save_avatar(
+            conn,
+            current_user.id,
+            file.content_type or "",
+            data,
+        )
+    except ValueError as e:
+        err = str(e)
+        if err == "invalid_mime":
+            raise HTTPException(
+                status_code=status.HTTP_415_UNSUPPORTED_MEDIA_TYPE,
+                detail="Only JPEG, PNG, and WebP images are allowed.",
+            )
+        if err == "file_too_large":
+            raise HTTPException(
+                status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+                detail="Image must be 2 MB or smaller.",
+            )
+        raise HTTPException(status_code=400, detail="Avatar upload failed.")
+    return schemas.AvatarUploadResponse(avatar_url=avatar_url)
+
+
+@router.get("/me/gdpr-export", response_model=schemas.GdprExportResponse)
 async def gdpr_export(
     current_user: CurrentUser = Depends(get_current_user),
+    conn=Depends(get_db_conn),
 ):
-    """GDPR data export stub — Phase 8 will implement actual export."""
-    return schemas.GdprExportResponse()
+    try:
+        data = await service.build_gdpr_export(conn, current_user.id)
+    except ValueError:
+        raise HTTPException(status_code=404, detail="User not found.")
+    return data
 
 
 @router.delete("/me", status_code=200)

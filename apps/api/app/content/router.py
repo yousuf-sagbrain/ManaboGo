@@ -6,7 +6,8 @@ from uuid import UUID
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 
-from app.auth.dependencies import get_current_user, CurrentUser
+from app.auth.dependencies import CurrentUser, require_permission
+from app.auth.permissions import PermissionKey
 from app.content import schemas, service
 from app.database import get_db_conn
 
@@ -21,7 +22,7 @@ async def list_vocabulary(
     limit: int = Query(50, ge=1, le=200),
     offset: int = Query(0, ge=0),
     conn=Depends(get_db_conn),
-    _: CurrentUser = Depends(get_current_user),
+    _: CurrentUser = Depends(require_permission(PermissionKey.PRACTICE_BASIC)),
 ):
     rows = await conn.fetch(
         """
@@ -44,7 +45,7 @@ async def get_review_queue(
     limit: int = Query(20, ge=1, le=50),
     include_new: bool = Query(True),
     conn=Depends(get_db_conn),
-    current_user: CurrentUser = Depends(get_current_user),
+    current_user: CurrentUser = Depends(require_permission(PermissionKey.PRACTICE_BASIC)),
 ):
     user_id = UUID(current_user.id)
 
@@ -80,7 +81,7 @@ async def grade_card(
     body: schemas.SrsGrade,
     vocab_id: UUID = Query(...),
     conn=Depends(get_db_conn),
-    current_user: CurrentUser = Depends(get_current_user),
+    current_user: CurrentUser = Depends(require_permission(PermissionKey.PRACTICE_BASIC)),
 ):
     result = await service.grade_card(conn, UUID(current_user.id), vocab_id, body.grade)
     return result
@@ -91,7 +92,7 @@ async def grade_card(
 @router.get("/lessons", response_model=list[schemas.LessonBrief])
 async def list_lessons(
     conn=Depends(get_db_conn),
-    current_user: CurrentUser = Depends(get_current_user),
+    current_user: CurrentUser = Depends(require_permission(PermissionKey.PRACTICE_BASIC)),
 ):
     user_id = UUID(current_user.id)
     rows = await conn.fetch(
@@ -116,7 +117,7 @@ async def list_lessons(
 async def get_lesson(
     lesson_id: UUID,
     conn=Depends(get_db_conn),
-    current_user: CurrentUser = Depends(get_current_user),
+    current_user: CurrentUser = Depends(require_permission(PermissionKey.PRACTICE_BASIC)),
 ):
     user_id = UUID(current_user.id)
     row = await conn.fetchrow(
@@ -144,7 +145,7 @@ async def complete_lesson(
     lesson_id: UUID,
     score_pct: int = Query(100, ge=0, le=100),
     conn=Depends(get_db_conn),
-    current_user: CurrentUser = Depends(get_current_user),
+    current_user: CurrentUser = Depends(require_permission(PermissionKey.PRACTICE_BASIC)),
 ):
     user_id = UUID(current_user.id)
     await conn.execute(
@@ -174,7 +175,7 @@ async def complete_lesson(
 @router.get("/stats", response_model=schemas.UserStatsResponse)
 async def get_stats(
     conn=Depends(get_db_conn),
-    current_user: CurrentUser = Depends(get_current_user),
+    current_user: CurrentUser = Depends(require_permission(PermissionKey.PRACTICE_BASIC)),
 ):
     user_id = UUID(current_user.id)
     stats = await service.ensure_user_stats(conn, user_id)
@@ -190,7 +191,7 @@ async def get_stats(
 @router.get("/mock-tests", response_model=list[schemas.MockTestBrief])
 async def list_mock_tests(
     conn=Depends(get_db_conn),
-    _: CurrentUser = Depends(get_current_user),
+    _: CurrentUser = Depends(require_permission(PermissionKey.MOCK_LIMITED)),
 ):
     rows = await conn.fetch(
         "SELECT id, title, description, time_limit_minutes, is_active FROM mock_tests WHERE is_active ORDER BY created_at"

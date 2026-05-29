@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from app.auth.router import router as auth_router
 from app.config import settings
@@ -11,6 +14,8 @@ from app.content.router import router as content_router
 from app.core.exceptions import register_exception_handlers
 from app.database import lifespan
 from app.users.router import router as users_router
+
+_UPLOADS_DIR = Path(__file__).resolve().parent / "uploads"
 
 # ── Certificate stub endpoint (Phase 5) ──────────────────────
 from fastapi import APIRouter
@@ -51,6 +56,10 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    # ── Static files (local avatar storage until R2 — Task 31) ──
+    _UPLOADS_DIR.mkdir(parents=True, exist_ok=True)
+    app.mount("/static", StaticFiles(directory=str(_UPLOADS_DIR)), name="static")
 
     # ── Routers ───────────────────────────────────────────────
     app.include_router(auth_router)

@@ -41,12 +41,29 @@ async def create_pool() -> asyncpg.Pool:
 
 
 async def create_redis() -> aioredis.Redis:  # type: ignore[type-arg]
-    """Create and return a new Redis client."""
-    return await aioredis.from_url(
+    """
+    Create and return a Redis client.
+    In non-production: falls back to fakeredis if the real Redis is unreachable
+    so local dev works without a running Redis server.
+    """
+    import redis.asyncio as _aioredis
+    client = await _aioredis.from_url(
         settings.redis_url,
         encoding="utf-8",
         decode_responses=True,
     )
+    if settings.is_production:
+        return client
+    try:
+        await client.ping()
+        return client
+    except Exception:
+        import logging
+        logging.getLogger(__name__).warning(
+            "Redis unreachable at %s — using fakeredis for local dev", settings.redis_url
+        )
+        import fakeredis.aioredis as fakeredis_aio
+        return fakeredis_aio.FakeRedis(decode_responses=True)  # type: ignore[return-value]
 
 
 @asynccontextmanager
