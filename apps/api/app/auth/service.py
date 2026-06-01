@@ -325,12 +325,12 @@ async def login_user(
         await conn.execute(
             """
             INSERT INTO user_sessions (user_id, refresh_token_id, user_agent, ip_address)
-            VALUES ($1, $2, $3, $4::inet)
+            VALUES ($1, $2, $3, NULLIF($4, '')::inet)
             """,
             user["id"],
             rt_row["id"],
             user_agent,
-            ip_address,
+            ip_address or "",
         )
 
     return {

@@ -8,6 +8,7 @@ from fastapi import APIRouter, Cookie, Depends, HTTPException, Request, Response
 
 from app.auth import schemas, service
 from app.auth.dependencies import CurrentUser, get_current_user
+from app.config import settings
 from app.database import get_db_conn, get_redis
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -23,7 +24,7 @@ def _set_refresh_cookie(response: Response, token: str) -> None:
         key=REFRESH_COOKIE,
         value=token,
         httponly=True,
-        secure=True,
+        secure=settings.is_production,
         samesite="strict",
         path=REFRESH_PATH,
         max_age=REFRESH_MAX_AGE,
@@ -35,7 +36,7 @@ def _clear_refresh_cookie(response: Response) -> None:
         key=REFRESH_COOKIE,
         value="",
         httponly=True,
-        secure=True,
+        secure=settings.is_production,
         samesite="strict",
         path=REFRESH_PATH,
         max_age=0,
