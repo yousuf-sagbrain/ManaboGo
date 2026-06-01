@@ -13,6 +13,7 @@ from app.config import settings
 from app.content.router import router as content_router
 from app.core.exceptions import register_exception_handlers
 from app.database import lifespan
+from app.kana.router import router as kana_router
 from app.users.router import router as users_router
 
 _UPLOADS_DIR = Path(__file__).resolve().parent / "uploads"
@@ -36,7 +37,7 @@ async def get_certificate(cert_id: str):
 def create_app() -> FastAPI:
     app = FastAPI(
         title="ManaboGo API",
-        description="Global JLPT N5 Japanese Learning Platform — Phase 0",
+        description="Global JLPT N5 Japanese Learning Platform — Phase 1",
         version="0.1.0",
         lifespan=lifespan,
         docs_url="/docs" if not settings.is_production else None,
@@ -65,6 +66,7 @@ def create_app() -> FastAPI:
     app.include_router(auth_router)
     app.include_router(users_router)
     app.include_router(content_router)
+    app.include_router(kana_router)
     app.include_router(certificates_router)
 
     # ── Exception handlers ────────────────────────────────────
