@@ -1,0 +1,10 @@
+export type { KanaChar } from './types'
+export type { HiraganaChar } from './hiragana'
+export type { KatakanaChar } from './katakana'
+export type { KanaPair } from './kanaMapping'
+export type { KanaRow } from './kanaRows'
+
+export { hiragana } from './hiragana'
+export { katakana } from './katakana'
+export { kanaPairs } from './kanaMapping'
+export { kanaRows } from './kanaRows'
