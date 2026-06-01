@@ -534,8 +534,6 @@ export default function MockResultPage() {
         overflow: "hidden",
       }}
     >
-      <PageHeader />
-
       {/* Scrollable body */}
       <div
         style={{

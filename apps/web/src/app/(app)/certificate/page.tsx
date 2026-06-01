@@ -573,8 +573,6 @@ export default function CertificatePage() {
         overflow: "hidden",
       }}
     >
-      <PageHeader />
-
       {/* Scrollable body */}
       <div
         style={{

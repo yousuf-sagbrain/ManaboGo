@@ -25,39 +25,47 @@ export default function SettingsPage() {
   ];
 
   return (
-    <div className="max-w-2xl">
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold text-slate-900 font-display">Settings</h1>
-        {user && (
-          <div className="flex items-center gap-2 mt-2">
-            <p className="text-sm text-slate-500">{user.email}</p>
-            <RoleBadge role={user.role} />
+    <div style={{ padding: "32px 40px", overflowY: "auto" }}>
+        <div className="max-w-2xl w-full">
+          <div className="mb-6">
+            <h1 className="text-2xl font-bold text-slate-900 font-display">Settings</h1>
+            {user && (
+              <div className="flex items-center gap-2 mt-1.5">
+                <p className="text-sm text-slate-500">{user.email}</p>
+                <RoleBadge role={user.role} />
+              </div>
+            )}
           </div>
-        )}
-      </div>
 
-      {/* Tabs */}
-      <div className="flex gap-1 border-b border-slate-200 mb-6">
-        {tabs.map((tab) => (
-          <button
-            key={tab.id}
-            onClick={() => setActiveTab(tab.id)}
-            className={[
-              "px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors",
-              activeTab === tab.id
-                ? "border-indigo-600 text-indigo-600"
-                : "border-transparent text-slate-500 hover:text-slate-700",
-            ].join(" ")}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
+          {/* Card box */}
+          <div className="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
+            {/* Tabs */}
+            <div className="flex gap-1 border-b border-slate-200 px-6 pt-4">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveTab(tab.id)}
+                  className={[
+                    "px-4 py-2.5 text-sm font-medium border-b-2 -mb-px transition-colors",
+                    activeTab === tab.id
+                      ? "border-indigo-600 text-indigo-600"
+                      : "border-transparent text-slate-500 hover:text-slate-700",
+                  ].join(" ")}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
 
-      {activeTab === "profile" && <ProfileTab />}
-      {activeTab === "security" && <SecurityTab />}
-      {activeTab === "sessions" && <SessionsTab />}
-      {activeTab === "privacy" && <PrivacyTab />}
+            {/* Tab content */}
+            <div className="p-6">
+              {activeTab === "profile" && <ProfileTab />}
+              {activeTab === "security" && <SecurityTab />}
+              {activeTab === "sessions" && <SessionsTab />}
+              {activeTab === "privacy" && <PrivacyTab />}
+            </div>
+          </div>
+        </div>
     </div>
   );
 }

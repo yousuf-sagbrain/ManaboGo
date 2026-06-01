@@ -19,34 +19,12 @@ const BADGES: Badge[] = [
 ];
 
 const FRIENDS: Friend[] = [
-  { id: "1", name: "Aisha K.", initials: "AK", action: "Completed Kanji · Batch 2",    time: "2 h ago",  avatarColor: "#7C3AED" },
-  { id: "2", name: "Tariq M.", initials: "TM", action: "Scored 92% on Mock Test",       time: "5 h ago",  avatarColor: "#04B888" },
+  { id: "1", name: "Aisha K.", initials: "AK", action: "Completed Kanji · Batch 2",    time: "2 h ago",   avatarColor: "#7C3AED" },
+  { id: "2", name: "Tariq M.", initials: "TM", action: "Scored 92% on Mock Test",       time: "5 h ago",   avatarColor: "#04B888" },
   { id: "3", name: "Lena S.",  initials: "LS", action: "Unlocked 7-Day Streak badge",   time: "Yesterday", avatarColor: "#F59E0B" },
 ];
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
-
-function TopBar() {
-  const user = useAuthStore((s) => s.user);
-  const initials = user?.fullName
-    ? user.fullName.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()
-    : user?.email?.[0]?.toUpperCase() ?? "?";
-
-  return (
-    <div style={{ height: 60, background: "var(--ink)", display: "flex", alignItems: "center", justifyContent: "flex-end", padding: "0 32px", gap: 16, flexShrink: 0 }}>
-      <button style={{ position: "relative", background: "none", border: "none", cursor: "pointer", padding: 6, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center", color: "#CBD5E1" }} aria-label="Notifications">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-          <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-        </svg>
-        <span style={{ position: "absolute", top: 5, right: 5, width: 8, height: 8, borderRadius: "50%", background: "var(--sakura)", border: "2px solid var(--ink)" }} />
-      </button>
-      <div style={{ width: 36, height: 36, borderRadius: "50%", background: "var(--sakura)", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontFamily: "var(--font-display)", fontWeight: 700, fontSize: 15, cursor: "pointer", userSelect: "none" }}>
-        {initials}
-      </div>
-    </div>
-  );
-}
 
 function VerificationBanner({ onDismiss }: { onDismiss: () => void }) {
   return (
@@ -80,12 +58,12 @@ function LessonCard({ title, description, completedCount, totalCount, loading }:
   return (
     <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: 20, padding: 24, display: "flex", gap: 24, alignItems: "flex-start", flexWrap: "wrap" }}>
       <div style={{ flex: 1, minWidth: 200 }}>
-        <div style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: "var(--sakura)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>Today's lesson</div>
+        <div style={{ fontFamily: "var(--font-body)", fontSize: 12, fontWeight: 600, color: "var(--sakura)", textTransform: "uppercase", letterSpacing: "0.08em", marginBottom: 6 }}>Today&apos;s lesson</div>
         <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 22, color: "var(--ink)", margin: "0 0 6px 0" }}>
           {loading ? "Loading…" : title}
         </h2>
         <p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "var(--muted)", margin: "0 0 16px 0" }}>
-          {loading ? " " : description}
+          {loading ? " " : description}
         </p>
         <div style={{ marginBottom: 6 }}>
           <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
@@ -201,10 +179,8 @@ export default function DashboardPage() {
   const firstName = user?.fullName?.split(" ")[0] ?? user?.email?.split("@")[0] ?? "there";
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh", background: "var(--page)" }}>
-      <TopBar />
-
-      <div style={{ flex: 1, overflowY: "auto", padding: "24px 32px", display: "flex", flexDirection: "column", gap: 18, maxWidth: 1100, width: "100%", margin: "0 auto", boxSizing: "border-box" }}>
+    <div style={{ height: "100%", overflowY: "auto", background: "var(--page)" }}>
+      <div style={{ padding: "24px 32px", display: "flex", flexDirection: "column", gap: 18, maxWidth: 1100, width: "100%", margin: "0 auto", boxSizing: "border-box" }}>
         {!bannerDismissed && !user?.emailVerified && (
           <VerificationBanner onDismiss={() => setBannerDismissed(true)} />
         )}
@@ -224,15 +200,15 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Stats row — live data */}
+        {/* Stats row */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14 }}>
-          <StatCard icon="🔥" label="Day Streak"    value={stats?.day_streak ?? 0}          accentColor="var(--sakura)"  iconBg="var(--tint-sakura)"  loading={loading} />
-          <StatCard icon="🪙" label="Sakura Coins"  value={stats?.sakura_coins ?? 0}         accentColor="#B07A00"        iconBg="var(--tint-amber)"   loading={loading} />
-          <StatCard icon="📚" label="Lessons Done"  value={stats?.lessons_completed ?? 0}    accentColor="var(--ink)"     iconBg="var(--surface-2)"    loading={loading} />
-          <StatCard icon="✨" label="Vocab Mastered" value={stats?.vocab_mastered ?? 0}       accentColor="var(--indigo)"  iconBg="var(--tint-indigo)"  loading={loading} />
+          <StatCard icon="🔥" label="Day Streak"    value={stats?.day_streak ?? 0}       accentColor="var(--sakura)"  iconBg="var(--tint-sakura)"  loading={loading} />
+          <StatCard icon="🪙" label="Sakura Coins"  value={stats?.sakura_coins ?? 0}      accentColor="#B07A00"        iconBg="var(--tint-amber)"   loading={loading} />
+          <StatCard icon="📚" label="Lessons Done"  value={stats?.lessons_completed ?? 0} accentColor="var(--ink)"     iconBg="var(--surface-2)"    loading={loading} />
+          <StatCard icon="✨" label="Vocab Mastered" value={stats?.vocab_mastered ?? 0}    accentColor="var(--indigo)"  iconBg="var(--tint-indigo)"  loading={loading} />
         </div>
 
-        {/* Lesson CTA — live data */}
+        {/* Lesson CTA */}
         <LessonCard
           title={today?.title ?? "Numbers & Time"}
           description={today?.description ?? "Load your first lesson to begin."}
@@ -247,9 +223,7 @@ export default function DashboardPage() {
           <ReadinessCard />
         </div>
 
-        {/* Achievements — first-lesson badge unlocks from real data */}
         <AchievementsSection lessonsCompleted={stats?.lessons_completed ?? 0} />
-
         <FriendActivitySection />
 
         <div style={{ height: 12 }} />
