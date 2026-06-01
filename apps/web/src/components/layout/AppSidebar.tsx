@@ -107,13 +107,14 @@ interface NavEntry {
 }
 
 const NAV_ITEMS: NavEntry[] = [
-  { href: "/dashboard",     label: "Home",       Icon: IconHome },
-  { href: "/learn",         label: "Practice",   Icon: IconBook },
-  { href: "/mock-result",   label: "Mock Tests", Icon: IconMock, proLock: true },
-  { href: "/games",         label: "Games",      Icon: IconGames },
-  { href: "/friends",       label: "Friends",    Icon: IconFriends },
-  { href: "/settings",      label: "Profile",    Icon: IconProfile },
-  { href: "/admin",         label: "Admin",      Icon: IconAdmin, minRole: Role.Admin },
+  { href: "/dashboard",        label: "Home",       Icon: IconHome },
+  { href: "/kana",             label: "Kana",       Icon: IconBook },
+  { href: "/learn",            label: "Practice",   Icon: IconBook },
+  { href: "/mock-result",      label: "Mock Tests", Icon: IconMock, proLock: true },
+  { href: "/games",            label: "Games",      Icon: IconGames },
+  { href: "/friends",          label: "Friends",    Icon: IconFriends },
+  { href: "/settings",         label: "Profile",    Icon: IconProfile },
+  { href: "/admin",            label: "Admin",      Icon: IconAdmin, minRole: Role.Admin },
 ];
 
 export function AppSidebar() {
