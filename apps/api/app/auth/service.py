@@ -281,8 +281,8 @@ async def login_user(
 
     role = user["role"]
 
-    # Admin/Super Admin: must have 2FA set up
-    if role in ("admin", "super_admin") and not user["two_factor_secret"]:
+    # Admin/Super Admin: must have 2FA set up (skipped in non-production for demo accounts)
+    if role in ("admin", "super_admin") and not user["two_factor_secret"] and settings.is_production:
         return {"requires_2fa_setup": True}
 
     # 2FA check
