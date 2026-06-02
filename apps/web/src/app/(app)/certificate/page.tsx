@@ -123,7 +123,7 @@ function PageHeader() {
             letterSpacing: "-0.01em",
           }}
         >
-          ManaboGo
+          Manabo
         </span>
       </div>
 
@@ -187,7 +187,7 @@ function CertificateCard() {
               letterSpacing: "-0.01em",
             }}
           >
-            ManaboGo
+            Manabo
           </span>
         </div>
         <span
@@ -279,7 +279,7 @@ function CertificateCard() {
               lineHeight: 1.6,
             }}
           >
-            has successfully completed the ManaboGo JLPT N5 Examination
+            has successfully completed the Manabo JLPT N5 Examination
           </p>
 
           {/* Score / Date / Result row */}

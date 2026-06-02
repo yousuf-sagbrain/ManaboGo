@@ -18,12 +18,10 @@ const ROUTE_META: Record<string, { title: string; badge?: string }> = {
   "/settings":               { title: "Settings" },
   "/games":                  { title: "Games" },
   "/friends":                { title: "Friends" },
-  "/admin":                  { title: "Admin",                badge: "Admin" },
-  "/super-admin":            { title: "Super Admin",          badge: "Super Admin" },
 };
 
 export function NavbarWrapper() {
   const pathname = usePathname();
-  const meta = ROUTE_META[pathname] ?? { title: "ManaboGo" };
+  const meta = ROUTE_META[pathname] ?? { title: "Manabo" };
   return <AppNavbar title={meta.title} badge={meta.badge} />;
 }

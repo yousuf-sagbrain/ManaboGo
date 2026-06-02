@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Pricing — ManaboGo",
+  title: "Pricing — Manabo",
   description:
     "Free forever or upgrade to Pro for unlimited practice, mock tests, and N5 certification. Prices automatically adjusted for your region.",
 };
@@ -106,7 +106,7 @@ export default function PricingPage() {
             },
             {
               q: "Is the N5 certificate recognized?",
-              a: "ManaboGo certificates are independently verified and recognized by a growing number of language schools and employers. They are designed to complement, not replace, the official JLPT exam.",
+              a: "Manabo certificates are independently verified and recognized by a growing number of language schools and employers. They are designed to complement, not replace, the official JLPT exam.",
             },
             {
               q: "Can I cancel anytime?",

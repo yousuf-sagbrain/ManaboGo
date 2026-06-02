@@ -55,7 +55,7 @@ function GuideModal({ onClose }: { onClose: () => void }) {
         <div style={{ padding: "24px 28px 20px", borderBottom: "1px solid #F1F5F9", display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
           <div style={{ width: 40, height: 40, borderRadius: 12, background: "var(--tint-indigo)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20 }}>📖</div>
           <div>
-            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, color: "var(--ink)", margin: 0 }}>ManaboGo User Guide</h2>
+            <h2 style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 20, color: "var(--ink)", margin: 0 }}>Manabo User Guide</h2>
             <p style={{ fontFamily: "var(--font-body)", fontSize: 13, color: "var(--muted)", margin: 0 }}>Everything you need to know to master JLPT N5</p>
           </div>
           <button

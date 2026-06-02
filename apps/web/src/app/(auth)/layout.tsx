@@ -1,11 +1,11 @@
-/** Auth route group layout — centered card, no nav. */
+﻿/** Auth route group layout — centered card, no nav. */
 
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | ManaboGo",
-    default: "ManaboGo",
+    template: "%s | Manabo",
+    default: "Manabo",
   },
 };
 

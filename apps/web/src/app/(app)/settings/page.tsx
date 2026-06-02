@@ -376,7 +376,7 @@ function PrivacyTab() {
     <div className="space-y-6">
       <div>
         <h3 className="text-base font-semibold text-slate-900 mb-1">Export your data</h3>
-        <p className="text-sm text-slate-500 mb-4">Download all your ManaboGo data including progress, achievements, and account info.</p>
+        <p className="text-sm text-slate-500 mb-4">Download all your Manabo data including progress, achievements, and account info.</p>
         {exportMsg && <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3 text-sm text-emerald-700 mb-4">{exportMsg}</div>}
         <Button variant="secondary" isLoading={isExporting} onClick={handleExport}>Export my data</Button>
       </div>

@@ -36,17 +36,25 @@ const jetbrainsMono = JetBrains_Mono({
 // ── Root metadata ──────────────────────────────────────────────
 export const metadata: Metadata = {
   title: {
-    default: "ManaboGo — Learn Japanese for JLPT N5",
-    template: "%s | ManaboGo",
+    default: "Manabo — Learn Japanese for JLPT N5",
+    template: "%s | Manabo",
   },
   description:
-    "ManaboGo is the first platform offering an accredited online JLPT N5 certificate, combining adaptive SRS, AI-powered readiness reports, and a global learner community across 30+ countries.",
+    "Manabo is the first platform offering an accredited online JLPT N5 certificate, combining adaptive SRS, AI-powered readiness reports, and a global learner community across 30+ countries.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
   ),
+  icons: {
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+    shortcut: "/favicon.ico",
+  },
   openGraph: {
     type: "website",
-    siteName: "ManaboGo",
+    siteName: "Manabo",
     locale: "en_US",
   },
   twitter: {

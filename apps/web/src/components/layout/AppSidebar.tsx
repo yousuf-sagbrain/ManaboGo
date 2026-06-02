@@ -149,9 +149,9 @@ export function AppSidebar() {
     }}>
       {/* Brand */}
       <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "4px 8px" }}>
-        <SakuraMark size={28} />
+        <img src="/assets/brand/manabo_logo.png" alt="Manabo" style={{ width: 36, height: 36, objectFit: "contain", flexShrink: 0 }} />
         <div>
-          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 17, lineHeight: 1 }}>ManaboGo</div>
+          <div style={{ fontFamily: "var(--font-display)", fontWeight: 800, fontSize: 17, lineHeight: 1 }}>Manabo</div>
           <div style={{ fontSize: 11, opacity: 0.6, marginTop: 3, letterSpacing: "0.04em", textTransform: "uppercase" }}>JLPT N5</div>
         </div>
       </div>

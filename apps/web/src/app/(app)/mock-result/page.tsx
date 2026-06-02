@@ -55,7 +55,7 @@ function PageHeader() {
           letterSpacing: "-0.01em",
         }}
       >
-        ManaboGo
+        Manabo
       </span>
       <a
         href="/dashboard"

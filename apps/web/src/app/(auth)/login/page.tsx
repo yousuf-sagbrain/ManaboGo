@@ -61,7 +61,7 @@ export default function LoginPage() {
       {/* Brand */}
       <div style={{ textAlign: "center", marginBottom: "24px" }}>
         <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", marginBottom: "6px" }}>
-          <SakuraMark size={32} />
+          <img src="/assets/brand/manabo_logo.png" alt="Manabo" style={{ width: 32, height: 32, objectFit: "contain" }} />
           <span
             style={{
               fontFamily: "var(--font-display)",
@@ -71,7 +71,7 @@ export default function LoginPage() {
               letterSpacing: "-0.3px",
             }}
           >
-            ManaboGo
+            Manabo
           </span>
         </div>
         <div

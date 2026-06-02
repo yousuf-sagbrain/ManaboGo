@@ -1,15 +1,15 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import Link from "next/link";
 import { LanguageSwitcher } from "@/components/layout/LanguageSwitcher";
 
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-  title: "ManaboGo — Learn Japanese for JLPT N5",
+  title: "Manabo — Learn Japanese for JLPT N5",
   description:
-    "ManaboGo is the first platform offering an accredited online JLPT N5 certificate. Adaptive SRS, AI-powered readiness reports, and a global learner community across 30+ countries.",
+    "Manabo is the first platform offering an accredited online JLPT N5 certificate. Adaptive SRS, AI-powered readiness reports, and a global learner community across 30+ countries.",
   openGraph: {
-    title: "ManaboGo — Learn Japanese for JLPT N5",
+    title: "Manabo — Learn Japanese for JLPT N5",
     description:
       "Adaptive SRS · Readiness Reports · N5 Certification · Gamification. Start free today.",
     images: ["/og-home.png"],
@@ -107,7 +107,7 @@ export default function LandingPage() {
             href="/"
             style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}
           >
-            <SakuraMark />
+            <img src="/assets/brand/manabo_logo.png" alt="Manabo" style={{ width: 36, height: 36, objectFit: "contain" }} />
             <div style={{ display: "flex", flexDirection: "column", lineHeight: 1 }}>
               <span
                 style={{
@@ -118,7 +118,7 @@ export default function LandingPage() {
                   letterSpacing: "-0.3px",
                 }}
               >
-                ManaboGo
+                Manabo
               </span>
               <span
                 style={{
@@ -623,7 +623,7 @@ export default function LandingPage() {
           gap: 12,
         }}
       >
-        <p style={{ margin: 0 }}>© 2026 ManaboGo. All rights reserved.</p>
+        <p style={{ margin: 0 }}>© 2026 Manabo. All rights reserved.</p>
         <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
           <Link href="/about" style={{ color: "inherit", textDecoration: "none" }}>
             About
