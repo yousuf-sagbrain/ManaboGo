@@ -34,7 +34,7 @@ function hasMinimumRole(userRole: string, requiredRole: string): boolean {
 // ── Route rules ────────────────────────────────────────────────
 const ROUTE_RULES = [
   {
-    pattern: /^\/(dashboard|learn|settings)(\/|$)/,
+    pattern: /^\/(dashboard|learn|settings|roadmap|games|friends|certificate|mock-result|kana)(\/|$)/,
     role: "user",
     redirect: "/login",
   },

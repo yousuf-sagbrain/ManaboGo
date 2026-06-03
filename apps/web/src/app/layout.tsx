@@ -1,17 +1,11 @@
 import type { Metadata } from "next";
-import { Nunito, DM_Sans, Noto_Sans_JP, JetBrains_Mono } from "next/font/google";
+import { DM_Sans, Noto_Sans_JP, JetBrains_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
 
 // ── Fonts ──────────────────────────────────────────────────────
-const nunito = Nunito({
-  subsets: ["latin"],
-  weight: ["700", "800"],
-  variable: "--font-nunito",
-  display: "swap",
-});
-
+// DM Sans used for both display and body — clean, warm, not Inter
 const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
@@ -36,11 +30,11 @@ const jetbrainsMono = JetBrains_Mono({
 // ── Root metadata ──────────────────────────────────────────────
 export const metadata: Metadata = {
   title: {
-    default: "Manabo — Learn Japanese for JLPT N5",
-    template: "%s | Manabo",
+    default: "ManaboGo — Learn Japanese for JLPT N5",
+    template: "%s | ManaboGo",
   },
   description:
-    "Manabo is the first platform offering an accredited online JLPT N5 certificate, combining adaptive SRS, AI-powered readiness reports, and a global learner community across 30+ countries.",
+    "ManaboGo is the first platform offering an accredited online JLPT N5 certificate. Adaptive SRS, AI-powered readiness reports, and a global learner community across 30+ countries.",
   metadataBase: new URL(
     process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000"
   ),
@@ -73,7 +67,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
   return (
     <html
       lang={locale}
-      className={`${nunito.variable} ${dmSans.variable} ${notoSansJP.variable} ${jetbrainsMono.variable}`}
+      className={`${dmSans.variable} ${notoSansJP.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <body>

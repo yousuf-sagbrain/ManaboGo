@@ -12,19 +12,19 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    "bg-sakura text-white rounded-xl shadow-md hover:shadow-lg hover:brightness-105 active:translate-y-0.5 transition-all duration-150 disabled:opacity-50 disabled:cursor-not-allowed",
+    "btn btn-primary rounded-xl",
   secondary:
-    "bg-white border border-slate-200 text-slate-700 rounded-xl hover:bg-slate-50 transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed",
+    "btn btn-ghost rounded-xl",
   danger:
-    "bg-red-500 text-white rounded-xl hover:bg-red-600 transition-colors duration-150 active:translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed",
+    "btn btn-danger rounded-xl",
   ghost:
-    "text-slate-600 hover:bg-slate-100 rounded-lg transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed",
+    "btn btn-ghost rounded-lg",
 };
 
 const sizeClasses: Record<ButtonSize, string> = {
-  sm: "px-3 py-1.5 text-sm font-medium",
-  md: "px-5 py-2.5 text-sm font-semibold",
-  lg: "px-6 py-3 text-base font-semibold",
+  sm: "btn-sm",
+  md: "",
+  lg: "btn-lg",
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -49,7 +49,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           variantClasses[variant],
           sizeClasses[size],
           fullWidth ? "w-full" : "",
-          "inline-flex items-center justify-center gap-2 select-none",
           className,
         ]
           .filter(Boolean)

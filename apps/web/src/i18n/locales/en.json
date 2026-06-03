@@ -2,34 +2,44 @@
   "auth": {
     "login": {
       "title": "Welcome back",
+      "subtitle": "Sign in to continue your N5 journey",
       "emailLabel": "Email address",
       "passwordLabel": "Password",
       "submitBtn": "Sign in",
       "forgotPassword": "Forgot password?",
-      "noAccount": "Don't have an account?"
+      "noAccount": "Don't have an account?",
+      "signUp": "Create one →",
+      "orContinueWith": "or continue with"
     },
     "register": {
       "title": "Create your account",
+      "subtitle": "Start your JLPT N5 journey — it's free",
       "emailLabel": "Email address",
       "passwordLabel": "Password",
       "nameLabel": "Full name (optional)",
       "submitBtn": "Create account",
-      "hasAccount": "Already have an account?"
+      "hasAccount": "Already have an account?",
+      "signIn": "Sign in →",
+      "orContinueWith": "or continue with"
     },
     "verify": {
       "title": "Verify your email",
       "successMsg": "Email verified! You can now earn XP and badges.",
-      "expiredMsg": "This link has expired. Request a new verification email."
+      "expiredMsg": "This link has expired. Request a new verification email.",
+      "resendBtn": "Resend verification email"
     },
     "reset": {
       "title": "Reset your password",
+      "subtitle": "Enter your email and we'll send a reset link",
       "emailLabel": "Email address",
-      "submitBtn": "Send reset link"
+      "submitBtn": "Send reset link",
+      "backToLogin": "Back to sign in"
     },
     "twoFactor": {
       "title": "Two-factor authentication",
       "codeLabel": "6-digit code",
-      "submitBtn": "Verify"
+      "submitBtn": "Verify",
+      "useBackup": "Use a backup code"
     }
   },
   "common": {
@@ -37,19 +47,117 @@
     "error": "Something went wrong. Please try again.",
     "save": "Save",
     "cancel": "Cancel",
-    "back": "Back"
+    "back": "Back",
+      "next": "Next",
+    "close": "Close",
+    "confirm": "Confirm",
+    "maybeLater": "Maybe later"
   },
   "nav": {
-    "dashboard": "Dashboard",
+    "home": "Home",
+    "learn": "Learn",
+    "review": "Review",
+    "roadmap": "Roadmap",
+    "mockTests": "Mock Tests",
+    "games": "Games",
+    "friends": "Friends",
+    "profile": "Profile",
     "settings": "Settings",
+    "admin": "Admin",
     "logout": "Sign out",
     "upgrade": "Upgrade to Pro"
   },
   "dashboard": {
-    "welcomeBack": "Welcome back, {name}!",
-    "dailyLesson": "Daily Lesson",
+    "welcomeBack": "Good to see you, {name}",
+    "continueLearning": "Continue Learning",
+    "dailyReviews": "Daily Reviews",
+    "cardsReady": "{count} cards ready for review",
+    "allCaughtUp": "All caught up — great work!",
     "streak": "Day streak",
-    "upgradePrompt": "Upgrade to Pro to unlock the full Readiness Report and N5 Certification."
+    "coins": "Sakura Coins",
+    "lessonsDone": "Lessons Done",
+    "vocabMastered": "Vocab Mastered",
+    "roadmapPreview": "Learning Roadmap",
+    "viewAll": "View all →",
+    "achievements": "Achievements",
+    "friendActivity": "Friend Activity",
+    "seeAll": "See all →",
+    "upgradePrompt": "Upgrade to Pro to unlock the full Readiness Report and N5 Certification.",
+    "xpAvailable": "+200 XP available",
+    "startLesson": "Start lesson →",
+    "reviewNow": "Review now →",
+    "readinessReport": "Readiness Report",
+    "unlockReport": "Unlock your full 5-component Readiness Report",
+    "upgradeToPro": "✦ Upgrade to Pro",
+    "verifyBanner": "Verify your email to unlock XP tracking and badges.",
+    "sessionsLeft": "{n} free sessions remaining.",
+    "level": "Level {n}"
+  },
+  "proDashboard": {
+    "examPrepMode": "✦ Exam Prep Mode · Pro",
+    "examEligible": "✓ Exam eligible",
+    "moreToUnlock": "{n}% more to unlock exam",
+    "takeExam": "Take Cert Exam →",
+    "readinessReport": "Readiness Report",
+    "passProbability": "Pass Probability",
+    "sectionMastery": "Section Mastery",
+    "retentionCurve": "Retention Curve",
+    "kanjiCoverage": "Kanji Coverage",
+    "recommendedFocus": "Recommended Focus",
+    "offlineMode": "Offline Mode",
+    "offlineOn": "7-day content cached for offline study",
+    "offlineOff": "Enable to study without internet (Pro only)",
+    "subscription": "✦ Pro Subscription",
+    "managePlan": "Manage plan →"
+  },
+  "learn": {
+    "newCard": "New word",
+    "srsLevel": "SRS Level {n}",
+    "chooseMeaning": "Choose the meaning",
+    "correct": "Correct!",
+    "wrong": "The answer was \"{answer}\".",
+    "sessionXp": "Session XP · {xp}",
+    "sessionDone": "Session complete!",
+    "xpEarned": "You earned +{xp} XP this session.",
+    "allCaughtUp": "All caught up!",
+    "cardsStillDue": "{n} cards still due.",
+    "studyMore": "Study more",
+    "exitLesson": "Exit lesson",
+    "srsGrades": {
+      "again": "Again",
+      "hard": "Hard",
+      "good": "Good",
+      "easy": "Easy"
+    }
+  },
+  "roadmap": {
+    "title": "Learning Roadmap",
+    "subtitle": "Complete all 4 stages to unlock the N5 Certification Exam",
+    "overallProgress": "Overall Progress",
+    "stage1": "Stage 1: Kana Mastery",
+    "stage2": "Stage 2: Kanji Acquisition",
+    "stage3": "Stage 3: Vocabulary Expansion",
+    "stage4": "Stage 4: Grammar & Sentences",
+    "locked": "Complete the previous stage with 80%+ mastery to unlock.",
+    "startLesson": "Start →",
+    "complete": "Complete",
+    "certUnlock": "N5 Certification Exam",
+    "certDescription": "Complete all 4 stages and achieve 70%+ readiness to earn your certificate.",
+    "proOnly": "Pro members only"
+  },
+  "upgrade": {
+    "title": "Unlock Pro",
+    "subtitle": "Get unlimited access + N5 certification",
+    "cta": "Start 7-day free trial",
+    "maybeLater": "Maybe later",
+    "features": {
+      "unlimited": "Unlimited SRS + all 103 kanji",
+      "mocks": "Unlimited Mock Tests",
+      "readiness": "Full 5-component Readiness Report",
+      "battles": "Real-time sync battles",
+      "cert": "N5 Certification attempt",
+      "offline": "7-day offline mode"
+    }
   },
   "meta": {
     "home": {

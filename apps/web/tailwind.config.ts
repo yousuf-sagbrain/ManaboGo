@@ -9,45 +9,78 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // ManaboGo design tokens — mirrors tokens.css
-        sakura: {
-          DEFAULT: "#3B82F6",
-          press:   "#2563EB",
-          ring:    "#BFDBFE",
+        // ── ManaboGo warm design tokens ──────────────────────────
+        // Primary accent — muted indigo
+        accent: {
+          DEFAULT: "#5B6ABF",
+          hover:   "#4A58A8",
+          press:   "#3D4A9A",
+          ring:    "#C7CBE8",
+          tint:    "#ECEEF8",
+          "tint-2":"#D8DCF2",
         },
-        ink: {
-          DEFAULT: "#1A1F3C",
-          soft:    "#2A2F4F",
+        // Pro tier — warm gold
+        pro: {
+          DEFAULT: "#C9A96E",
+          hover:   "#B8954F",
+          tint:    "#FAF3E3",
+          ring:    "#EDD9A8",
         },
-        indigo: {
-          DEFAULT: "#7C3AED",
-          tint:    "#F3EFFE",
+        // Success — sage green
+        sage: {
+          DEFAULT: "#7BAE7F",
+          hover:   "#6A9D6E",
+          tint:    "#EEF5EE",
+          ring:    "#C2D9C3",
         },
-        gold:  "#FFD166",
-        mint: {
-          DEFAULT: "#06D6A0",
-          soft:    "#04B888",
-          tint:    "#EDFFF9",
+        // Error — warm coral
+        coral: {
+          DEFAULT: "#D4726A",
+          hover:   "#C05E56",
+          tint:    "#FAEDEC",
+          ring:    "#EDBBBA",
         },
-        page:    "#FAFAF9",
+        // Warm amber (streak / warning)
+        amber: {
+          DEFAULT: "#D4935A",
+          tint:    "#FDF3EA",
+          ring:    "#EDD4B4",
+        },
+        // Base surfaces — warm off-white
+        base: {
+          DEFAULT: "#FAF8F5",
+          2:       "#F0EEEB",
+          3:       "#E8E5E0",
+        },
         surface: {
           DEFAULT: "#FFFFFF",
-          2:       "#F7F7F4",
+          warm:    "#FDFCFA",
+          2:       "#F7F5F2",
+        },
+        // Ink — warm charcoal
+        ink: {
+          DEFAULT: "#1E1C1A",
+          soft:    "#3D3A36",
+          muted:   "#6B6460",
+          subtle:  "#9D9590",
         },
         border: {
-          DEFAULT: "#E8E8E8",
-          soft:    "#F0F0EE",
+          DEFAULT: "#E4E0DB",
+          soft:    "#EDE9E4",
+          strong:  "#CCC8C2",
         },
-        muted: {
-          DEFAULT: "#6B7280",
-          soft:    "#9CA3AF",
+        // Dark mode
+        dark: {
+          base:     "#1A1816",
+          surface:  "#242220",
+          "surface-2": "#2E2C29",
+          border:   "#3A3733",
+          ink:      "#F0EDE8",
+          muted:    "#8A8480",
         },
-        body:   "#2A2F3E",
-        danger: "#FF4757",
-        amber:  "#F59E0B",
       },
       fontFamily: {
-        display: ["var(--font-display)", "Nunito", "sans-serif"],
+        display: ["var(--font-display)", "Plus Jakarta Sans", "DM Sans", "sans-serif"],
         body:    ["var(--font-body)",    "DM Sans", "sans-serif"],
         jp:      ["var(--font-jp)",      "Noto Sans JP", "sans-serif"],
         mono:    ["var(--font-mono)",    "JetBrains Mono", "monospace"],
@@ -59,17 +92,22 @@ const config: Config = {
         pill:  "999px",
       },
       boxShadow: {
-        card: "0 4px 14px -4px rgba(26,31,60,0.08), 0 1px 3px rgba(0,0,0,0.04)",
-        "card-hover": "0 8px 24px -6px rgba(26,31,60,0.14), 0 2px 6px rgba(0,0,0,0.06)",
-        sidebar: "2px 0 20px rgba(0,0,0,0.06)",
+        card:       "0 2px 12px -2px rgba(30,28,26,0.07), 0 1px 3px rgba(0,0,0,0.03)",
+        "card-md":  "0 4px 20px -4px rgba(30,28,26,0.10), 0 2px 6px rgba(0,0,0,0.05)",
+        "card-lg":  "0 8px 32px -6px rgba(30,28,26,0.13), 0 2px 8px rgba(0,0,0,0.06)",
+        sidebar:    "2px 0 16px rgba(0,0,0,0.05)",
+        modal:      "0 24px 64px -12px rgba(30,28,26,0.20), 0 4px 12px rgba(0,0,0,0.08)",
+        "pro-glow": "0 0 0 3px rgba(201,169,110,0.25)",
       },
       animation: {
-        "fade-in":  "fadeIn 0.2s ease-in-out",
-        "slide-up": "slideUp 0.3s ease-out",
-        "shake":    "shake 240ms ease-in-out",
-        "xp-burst": "xpBurst 700ms cubic-bezier(0.16,1,0.32,1) forwards",
-        "cert-in":  "certIn 500ms cubic-bezier(0.16,1,0.32,1)",
-        "pulse-dot":"pulse 1.6s cubic-bezier(0.16,1,0.32,1) infinite",
+        "fade-in":    "fadeIn 0.2s ease-in-out",
+        "slide-up":   "slideUp 0.3s cubic-bezier(0.16,1,0.32,1)",
+        "slide-down": "slideDown 0.3s cubic-bezier(0.16,1,0.32,1)",
+        "scale-in":   "scaleIn 0.2s cubic-bezier(0.16,1,0.32,1)",
+        "shake":      "shake 240ms ease-in-out",
+        "xp-burst":   "xpBurst 700ms cubic-bezier(0.16,1,0.32,1) forwards",
+        "cert-in":    "certIn 500ms cubic-bezier(0.16,1,0.32,1)",
+        "pulse-ring": "pulseRing 1.8s cubic-bezier(0.16,1,0.32,1) infinite",
       },
       keyframes: {
         fadeIn: {
@@ -77,29 +115,37 @@ const config: Config = {
           "100%": { opacity: "1" },
         },
         slideUp: {
-          "0%":   { opacity: "0", transform: "translateY(8px)" },
+          "0%":   { opacity: "0", transform: "translateY(10px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        slideDown: {
+          "0%":   { opacity: "0", transform: "translateY(-10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        scaleIn: {
+          "0%":   { opacity: "0", transform: "scale(0.95)" },
+          "100%": { opacity: "1", transform: "scale(1)" },
         },
         shake: {
           "0%, 100%": { transform: "translateX(0)" },
-          "20%":      { transform: "translateX(4px)" },
-          "40%":      { transform: "translateX(-4px)" },
+          "20%":      { transform: "translateX(5px)" },
+          "40%":      { transform: "translateX(-5px)" },
           "60%":      { transform: "translateX(4px)" },
           "80%":      { transform: "translateX(-4px)" },
         },
         xpBurst: {
           "0%":   { opacity: "0", transform: "translateY(0)" },
           "20%":  { opacity: "1" },
-          "100%": { opacity: "0", transform: "translateY(-28px)" },
+          "100%": { opacity: "0", transform: "translateY(-32px)" },
         },
         certIn: {
-          from: { opacity: "0", transform: "scale(0.96)" },
-          to:   { opacity: "1", transform: "scale(1)" },
+          from: { opacity: "0", transform: "scale(0.96) translateY(8px)" },
+          to:   { opacity: "1", transform: "scale(1) translateY(0)" },
         },
-        pulse: {
-          "0%":   { boxShadow: "0 0 0 0 rgba(59,130,246,0.55)" },
-          "70%":  { boxShadow: "0 0 0 8px rgba(59,130,246,0)" },
-          "100%": { boxShadow: "0 0 0 0 rgba(59,130,246,0)" },
+        pulseRing: {
+          "0%":   { boxShadow: "0 0 0 0 rgba(91,106,191,0.40)" },
+          "70%":  { boxShadow: "0 0 0 10px rgba(91,106,191,0)" },
+          "100%": { boxShadow: "0 0 0 0 rgba(91,106,191,0)" },
         },
       },
     },
